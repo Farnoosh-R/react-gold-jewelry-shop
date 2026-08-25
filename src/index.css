@@ -1,0 +1,156 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: "vazir";
+    src: url("../src/assets/fonts/Vazirmatn-FD-NL-Regular.woff2")
+      format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "vazir";
+    src: url("../src/assets/fonts/Vazirmatn-FD-NL-Medium.woff2") format("woff2");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "vazir";
+    src: url("../src/assets/fonts/Vazirmatn-FD-NL-SemiBold.woff2")
+      format("woff2");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "vazir";
+    src: url("../src/assets/fonts/Vazirmatn-FD-NL-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "b_nazanin";
+    src: url("../src/assets/fonts/B-Nazanin.woff") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root {
+    --color-primary: #c9340f;
+    --color-secondary: #202020;
+    --color-muted: #b1b1b1;
+    --color-light: #f6f6f6;
+    --color-gray: #848484;
+    --color-surface: #f0f0f0;
+    /* --color-primary-alpha: #7bf1a8;
+    --color-primary-beta: #00c950;
+    --color-secondary-alpha: #161a45; */
+
+    --gradient-primary: linear-gradient(
+      90deg,
+      var(--color-primary-alpha) 0%,
+      var(--color-primary) 100%
+    );
+
+    --gradient-secondary: linear-gradient(
+      180deg,
+      var(--color-primary) 0%,
+      var(--color-primary-alpha) 100%
+    );
+  }
+
+  * {
+    transition: all 200ms ease-in-out;
+  }
+
+  .shadow-brand {
+    @apply shadow-lg;
+  }
+
+  .page {
+    @apply my-20;
+  }
+
+  .swiper-pagination-bullet-active {
+    background: var(--color-primary) !important;
+  }
+
+  .scroll-anim {
+    opacity: 0;
+    transform: var(--from);
+    transition: all 0.7s ease;
+  }
+
+  .scroll-anim.show {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+
+  html {
+    direction: rtl;
+    overflow-x: hidden !important;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    font-family: "Vazir", sans-serif;
+    color: var(--color-secondary);
+    font-size: 14px;
+    overflow-x: hidden !important;
+    /* text-align: justify; */
+  }
+
+  #root {
+    /* width: 1400px; */
+    max-width: 100%;
+    margin: 0 auto;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+
+  h1 {
+    @apply text-3xl md:text-5xl lg:text-[4rem] leading-[1.5] font-bold;
+  }
+
+  h2 {
+    @apply text-2xl md:text-4xl lg:text-[2.25rem] leading-[1.5] font-bold;
+  }
+
+  h3 {
+    @apply text-xl md:text-3xl lg:text-[1.75rem] leading-[1.4] font-semibold;
+  }
+
+  h4 {
+    @apply text-lg md:text-2xl lg:text-[1.5rem] leading-[1.4] font-semibold;
+  }
+
+  h5 {
+    @apply text-base md:text-lg lg:text-[1.25rem] leading-[1.7] font-medium;
+  }
+
+  h6 {
+    @apply text-sm md:text-base lg:text-[1rem] leading-[1.5] font-medium;
+  }
+}
+
+@layer components {
+  .app-container {
+    @apply mx-auto px-4 sm:px-6 lg:px-12;
+    /* max-width: 1400px; */
+    max-width: 85rem;
+  }
+}
