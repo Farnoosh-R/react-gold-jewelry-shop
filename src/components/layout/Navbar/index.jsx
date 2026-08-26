@@ -13,80 +13,49 @@ const menuData = [
     path: "/",
   },
   {
-    label: "درباره ما",
-    path: "/about",
+    label: "کالکشن ها",
+    children: [
+      {
+        label: "جدیدترین‌ها",
+        path: "new arrivals",
+      },
+      {
+        label: "مینیمال",
+        path: "minimal",
+      },
+      {
+        label: "لوکس",
+        path: "luxury",
+      },
+      {
+        label: "روزمره",
+        path: "everyday",
+      },
+      {
+        label: "هدیه",
+        path: "gifts",
+      },
+      {
+        label: "پرفروش‌ها",
+        path: "best sellers",
+      },
+    ],
   },
   {
-    label: "تماس با ما",
-    path: "/contact",
+    label: "فروشگاه",
+    path: "store",
   },
   {
     label: "مقالات",
     path: "/blog",
   },
   {
-    label: "پروژه ها",
-    path: "prijects",
+    label: "درباره ما",
+    path: "/about",
   },
   {
-    label: "راهکارها",
-    children: [
-      {
-        label: "کسب‌وکارهای نوپا",
-        path: "startups",
-      },
-      {
-        label: "سازمان‌های بزرگ",
-        path: "large organizations",
-      },
-    ],
-  },
-  {
-    label: "خدمات",
-    children: [
-      {
-        label: "مشاوره کسب‌وکار",
-        children: [
-          {
-            label: "مشاوره راه‌اندازی کسب‌وکار",
-            path: "business startup consulting",
-          },
-          {
-            label: "مشاوره مالی و سودآوری",
-            path: "financial and profitability consulting",
-          },
-          {
-            label: "مشاوره تحول دیجیتال",
-            path: "digital transformation consulting",
-          },
-        ],
-      },
-      {
-        label: "تدوین استراتژی",
-        children: [
-          {
-            label: "برنامه‌ریزی استراتژیک",
-            path: "strategic planning",
-          },
-          {
-            label: "تحلیل بازار و رقبا",
-            path: "market and competitor analysis",
-          },
-          {
-            label: "تعیین KPI و اهداف",
-            path: "setting KPIs and goals",
-          },
-          {
-            label: "تدوین نقشه راه",
-            path: "developing a roadmap",
-          },
-        ],
-      },
-      {
-        label: "برندینگ",
-        path: "branding",
-      },
-    ],
+    label: "تماس با ما",
+    path: "/contact",
   },
 ];
 
@@ -126,14 +95,20 @@ const Navbar = () => {
         </div>
 
         <div className="flex gap-3 items-center">
-               <div className="flex flex-col gap-2">
-            <div className="text-[var(--color-light)] text-xs">مشاوره و پشتیبانی</div>
-            <div className="text-[var(--color-light)] text-xs">12345678 - 21+</div>
+          <div className="flex flex-col gap-2">
+            <div className="text-[var(--color-light)] text-xs">
+              مشاوره و پشتیبانی
+            </div>
+            <div className="text-[var(--color-light)] text-xs">
+              12345678 - 21+
+            </div>
           </div>
-          <a href="" className="flex justify-center items-center bg-[var(--color-primary)] w-[35px] h-[35px] rounded-full">
+          <a
+            href=""
+            className="flex justify-center items-center bg-[var(--color-primary)] w-[35px] h-[35px] rounded-full"
+          >
             <FaPhone color="var(--color-secondary)" size={18} />
           </a>
-     
         </div>
 
         {/* Hamburger */}
@@ -141,7 +116,7 @@ const Navbar = () => {
           onClick={() => setMobileOpen(!mobileOpen)}
           className="lg:hidden text-2xl"
         >
-          <GiHamburgerMenu color="var(--color-light)"/>
+          <GiHamburgerMenu color="var(--color-light)" />
         </button>
       </div>
     </nav>
