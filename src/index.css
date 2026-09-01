@@ -47,26 +47,29 @@
   }
 
   :root {
-    --color-primary: #c9340f;
-    --color-secondary: #202020;
+    --color-primary: #091d1b;
+    /* --color-primary: #1a0a0b; */
+    --color-secondary: #bc955e;
     --color-muted: #b1b1b1;
-    --color-light: #f6f6f6;
-    --color-gray: #848484;
-    --color-surface: #f0f0f0;
-    /* --color-primary-alpha: #7bf1a8;
-    --color-primary-beta: #00c950;
-    --color-secondary-alpha: #161a45; */
+    --color-light: #ded8cc;
+    --color-dark: #070c08;
+    /* --color-gray: #848484; */
+    --color-surface: ;
+    --color-primary-light: #0f2f2c;
+    --color-primary-dark: #05100f;
+    --color-secondary-light: #d5af7e;
+    --color-secondary-dark: #7b5c30;
 
-    --gradient-primary: linear-gradient(
+    /* --gradient-primary: linear-gradient(
       90deg,
       var(--color-primary-alpha) 0%,
       var(--color-primary) 100%
-    );
+    ); */
 
     --gradient-secondary: linear-gradient(
       180deg,
-      var(--color-primary) 0%,
-      var(--color-primary-alpha) 100%
+      var(--color-secondary-light) 0%,
+      var(--color-secondary-dark) 100%
     );
   }
 
@@ -104,7 +107,7 @@
 
   body {
     margin: 0;
-    background: var(--bg);
+    background: var(--color-primary-dark);
     font-family: "Vazir", sans-serif;
     color: var(--color-secondary);
     font-size: 14px;

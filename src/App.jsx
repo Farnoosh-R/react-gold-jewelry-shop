@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "./components/layout/Navbar";
 import { Route, Routes, useLocation } from "react-router-dom";
+import Home from "./pages/home";
 // import Home from "./pages/home";
 // import Footer from "./components/layout/Footer";
 // import Contact from "./pages/contact";
@@ -46,8 +47,8 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        {/* <Route path="/" element={<Home />} />
-        <Route path="/contact" element={<Contact />} />
+         <Route path="/" element={<Home />} />
+       {/* <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<SinglePost />} /> */}

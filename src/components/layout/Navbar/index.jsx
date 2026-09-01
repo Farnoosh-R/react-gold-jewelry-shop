@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FiMap } from "react-icons/fi";
 import { GiHamburgerMenu } from "react-icons/gi";
 import MenuItem from "./MenuItem.jsx";
@@ -61,14 +61,40 @@ const menuData = [
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <nav className="fixed absolute top-0 left-0 bg-[var(--color-secondary)] w-full z-50 flex items-center justify-betwee h-[80px]">
+    <nav
+      className={`
+    fixed top-0 left-0 w-full z-50
+    flex items-center justify-between
+    h-[80px]
+    border-b
+    transition-all duration-300
+    ${
+      scrolled
+        ? "bg-[var(--color-primary)] border-b-[var(--color-primary)]/20 shadow-lg"
+        : "bg-transparent border-b-[var(--color-secondary)]/20"
+    }
+  `}
+    >
       {/* Right Side */}
       <div className="flex app-container items-center gap-4">
         {/* Logo */}
         <Link to="/">
-          <img src={logo} className="w-12" />
+          <img src={logo} className="w-20" />
         </Link>
 
         {/* Menu */}
@@ -78,7 +104,7 @@ const Navbar = () => {
     top-full left-0
     w-full lg:w-auto
     transition-all duration-300
-    bg-[var(--color-secondary)] lg:bg-transparent
+    bg-[var(--color-primary)] lg:bg-transparent
     lg:opacity-100 lg:visible lg:pointer-events-auto
 
     ${mobileOpen ? "opacity-100 visible pointer-events-auto" : "opacity-0 invisible pointer-events-none"}
@@ -105,7 +131,7 @@ const Navbar = () => {
           </div>
           <a
             href=""
-            className="flex justify-center items-center bg-[var(--color-primary)] w-[35px] h-[35px] rounded-full"
+            className="flex justify-center items-center w-[35px] h-[35px] rounded-full"
           >
             <FaPhone color="var(--color-secondary)" size={18} />
           </a>

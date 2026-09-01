@@ -43,9 +43,9 @@ const MenuItem = ({ item, depth = 0 }) => {
 
               ${open ? "block" : "hidden"}
 
-              bg-[var(--color-secondary)]
+              bg-[var(--color-primary)]
               border
-              border-[var(--color-gray)]/50
+              border-[var(--color-secondary)]/20
               shadow-xl
               rounded-xl
               min-w-[220px]
@@ -60,7 +60,7 @@ const MenuItem = ({ item, depth = 0 }) => {
       ) : (
         <NavLink
           to={item.path}
-          className="block px-4 py-2 font-semibold hover:text-[var(--color-primary)]"
+          className="block px-4 py-2 font-semibold hover:text-[var(--color-secondary)]"
         >
           {item.label}
         </NavLink>
