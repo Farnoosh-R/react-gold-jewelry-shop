@@ -4,6 +4,7 @@
 // import Experience from "./components/Experience";
 import Collections from "./components/Collections";
 import Hero from "./components/Hero";
+import NewArrivals from "./components/NewArrivals";
 // import Testimonials from "./components/Testimonials";
 
 const Home = () => {
@@ -11,8 +12,8 @@ const Home = () => {
     <div id="home" className="page flex flex-col gap-10 lg:gap-30">
       <Hero />
        <Collections />
-      {/*<About />
-      <Banner />
+      <NewArrivals />
+      {/*<Banner />
       <Experience />
       <Testimonials />
       <Customers /> */}
