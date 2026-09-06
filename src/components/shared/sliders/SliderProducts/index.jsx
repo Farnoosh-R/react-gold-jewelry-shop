@@ -1,0 +1,65 @@
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import { Pagination, Autoplay } from "swiper/modules";
+import "swiper/css/pagination";
+import { FaStar } from "react-icons/fa";
+import { FaShoppingCart } from "react-icons/fa";
+
+export default function SliderProducts({ items }) {
+  return (
+    <div className="w-full mr-auto min-w-0">
+      <Swiper
+        slidesPerView={5}
+        spaceBetween={20}
+        modules={[Autoplay]}
+        pagination={{ clickable: true }}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
+        breakpoints={{
+          320: {
+            slidesPerView: 1,
+          },
+          768: {
+            slidesPerView: 1,
+          },
+          1024: {
+            slidesPerView: 1,
+          },
+        }}
+        className="relative pb-10"
+      >
+        {items.map((item) => (
+          <SwiperSlide key={item.id}>
+            <div className="relative h-auto">
+              <div className="flex flex-col text-white">
+                <div className="relative overflow-hidden rounded-tr-xl rounded-tl-xl h-[200px]">
+                  <img
+                    src={item.image}
+                    className="object-cover w-full h-full"
+                    alt="products"
+                  />
+                </div>
+                <div className="flex flex-col items-center gap-1 p-5 bg-[var(--color-primary)] rounded-br-xl rounded-bl-xl">
+                  <div>{item.title}</div>
+                  <div>{item.price}</div>
+                  <div className="flex justify-between gap-7 items-center">
+                    <div className="bg-[var(--color-secondary)] p-2 rounded-lg"><FaShoppingCart color="var(--color-primary)" /></div>
+                    <div className="flex justify-center gap-2">
+                      <FaStar className="text-yellow-300" />
+                      <FaStar className="text-yellow-300" />
+                      <FaStar className="text-yellow-300" />
+                      <FaStar className="text-yellow-300" />
+                      <FaStar className="text-yellow-300" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
+}
