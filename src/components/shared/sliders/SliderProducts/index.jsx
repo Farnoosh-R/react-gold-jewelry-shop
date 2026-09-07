@@ -22,10 +22,10 @@ export default function SliderProducts({ items }) {
             slidesPerView: 1,
           },
           768: {
-            slidesPerView: 1,
+            slidesPerView: 2,
           },
           1024: {
-            slidesPerView: 1,
+            slidesPerView: 5,
           },
         }}
         className="relative pb-10"
@@ -41,18 +41,14 @@ export default function SliderProducts({ items }) {
                     alt="products"
                   />
                 </div>
-                <div className="flex flex-col items-center gap-1 p-5 bg-[var(--color-primary)] rounded-br-xl rounded-bl-xl">
-                  <div>{item.title}</div>
-                  <div>{item.price}</div>
-                  <div className="flex justify-between gap-7 items-center">
-                    <div className="bg-[var(--color-secondary)] p-2 rounded-lg"><FaShoppingCart color="var(--color-primary)" /></div>
-                    <div className="flex justify-center gap-2">
-                      <FaStar className="text-yellow-300" />
-                      <FaStar className="text-yellow-300" />
-                      <FaStar className="text-yellow-300" />
-                      <FaStar className="text-yellow-300" />
-                      <FaStar className="text-yellow-300" />
+                <div className="flex flex-col items-center gap-2 p-5 bg-[var(--color-primary)] rounded-br-xl rounded-bl-xl">
+                  <div className="text-[var(--color-secondary)]">{item.title}</div>
+
+                  <div className="flex justify-between gap-25 items-center">
+                    <div className="bg-[var(--color-primary-dark)] p-2 rounded-lg">
+                      <FaShoppingCart color="var(--color-secondary)" />
                     </div>
+                    <div>{item.price}</div>
                   </div>
                 </div>
               </div>
