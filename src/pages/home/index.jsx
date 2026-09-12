@@ -5,6 +5,7 @@
 import Collections from "./components/Collections";
 import Hero from "./components/Hero";
 import NewArrivals from "./components/NewArrivals";
+import Offers from "./components/Offers";
 // import Testimonials from "./components/Testimonials";
 
 const Home = () => {
@@ -13,8 +14,8 @@ const Home = () => {
       <Hero />
        <Collections />
       <NewArrivals />
-      {/*<Banner />
-      <Experience />
+      <Offers />
+      {/*<Experience />
       <Testimonials />
       <Customers /> */}
     </div>

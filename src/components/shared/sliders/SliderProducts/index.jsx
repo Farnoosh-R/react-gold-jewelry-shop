@@ -2,7 +2,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css/pagination";
-import { FaStar } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 
 export default function SliderProducts({ items }) {
