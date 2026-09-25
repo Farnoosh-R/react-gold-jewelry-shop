@@ -1,4 +1,5 @@
 
+import Button from '../../../../components/shared/Button';
 import offerLeft from '../../assets/images/offerLeft.png'
 import offerRight from '../../assets/images/offerRight.png'
 
@@ -14,9 +15,9 @@ const Offers = () => {
               backgroundPosition: "center",
             }}
           >
-            <div className='text-lg text-[var(--color-primary)]'>پیشنهاد ویژه</div>
-            <h3 className='text-[var(--color-secondary)]'>20% تخفیف ویژه</h3>
-            <div className='text-lg text-[var(--color-primary)]'>درخشش خاص، با قیمتی استثنایی</div>
+            <div className='text-lg text-white'>پیشنهاد اقتصادی</div>
+            <h3 className='text-white'>فرصت طلایی</h3>
+            <div className='text-left'><Button variant='secondary'>مشاهده جزئیات</Button></div>
           </div>
                  <div className='flex flex-col gap-3 rounded-2xl p-7 text-left'
             style={{
@@ -27,7 +28,7 @@ const Offers = () => {
           >
             <div className='text-lg text-[var(--color-primary)]'>پیشنهاد ویژه</div>
             <h3 className='text-[var(--color-primary)]'>20% تخفیف ویژه</h3>
-            <div className='text-lg text-[var(--color-primary)]'>درخشش خاص، با قیمتی استثنایی</div>
+            <div className='text-left'><Button variant='primary'>مشاهده جزئیات</Button></div>
           </div>
         </div>
       </div>

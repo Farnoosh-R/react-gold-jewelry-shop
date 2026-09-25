@@ -1,8 +1,9 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { Pagination, Autoplay } from "swiper/modules";
+import { Pagination, Autoplay, Navigation } from "swiper/modules";
 import "swiper/css/pagination";
 import { FaShoppingCart } from "react-icons/fa";
+import "swiper/css/navigation";
 
 export default function SliderProducts({ items }) {
   return (
@@ -10,7 +11,8 @@ export default function SliderProducts({ items }) {
       <Swiper
         slidesPerView={5}
         spaceBetween={20}
-        modules={[Autoplay]}
+        modules={[Autoplay, Navigation]}
+        navigation
         pagination={{ clickable: true }}
         autoplay={{
           delay: 3000,

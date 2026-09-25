@@ -49,6 +49,14 @@ const NewArrivals = () => {
       description: "-",
       buttonText: "خرید",
     },
+        {
+      id: 6,
+      image: p3,
+      title: "گردنبند طلای آتنا",
+      price: "1000 تومان",
+      description: "-",
+      buttonText: "خرید",
+    },
   ];
 
   return (
