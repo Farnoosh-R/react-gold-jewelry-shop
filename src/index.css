@@ -82,7 +82,7 @@
   }
 
   .page {
-    @apply my-20;
+    @apply my-40;
   }
 
   .swiper-pagination-bullet-active {
