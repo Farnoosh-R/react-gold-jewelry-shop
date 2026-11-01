@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import Navbar from "./components/layout/Navbar";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/home";
+import Footer from "./components/layout/Footer";
+import About from "./pages/About";
 // import Home from "./pages/home";
-// import Footer from "./components/layout/Footer";
 // import Contact from "./pages/contact";
 // import About from "./pages/about";
 // import Blog from "./pages/blog";
@@ -48,12 +49,13 @@ function App() {
       <Navbar />
       <Routes>
          <Route path="/" element={<Home />} />
-       {/* <Route path="/contact" element={<Contact />} />
+       
         <Route path="/about" element={<About />} />
+        {/* <Route path="/contact" element={<Contact />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<SinglePost />} /> */}
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }
