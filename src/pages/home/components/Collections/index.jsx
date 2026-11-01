@@ -15,7 +15,7 @@ const Collections = () => {
             <TitleAccent />
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="flex justify-end">
+          <div className="flex justify-center lg:justify-end">
             
             <Link className="flex flex-col w-3/5 h-[300px] text-center group">
             
@@ -29,7 +29,7 @@ const Collections = () => {
               </div>
             </Link>
           </div>
-          <div className="flex justify-start">
+          <div className="flex justify-center lg:justify-start">
             <Link className="flex flex-col w-3/5 h-[300px] text-center group">
               <div className="image-holder rounded-tr-3xl rounded-tl-3xl shadow-2xl overflow-hidden relative">
                 <img src={col2} alt="" />
@@ -43,7 +43,7 @@ const Collections = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="flex justify-end">
+          <div className="flex justify-center lg:justify-end">
             <Link className="flex flex-col w-3/5 h-[300px] text-center group">
               <div className="image-holder rounded-tr-3xl rounded-tl-3xl shadow-2xl overflow-hidden relative">
                 <img src={col3} alt="" />
@@ -55,7 +55,7 @@ const Collections = () => {
               </div>
             </Link>
           </div>
-          <div className="flex justify-start">
+          <div className="flex justify-center lg:justify-start">
             <Link className="flex flex-col w-3/5 h-[300px] text-center group">
               <div className="image-holder rounded-tr-3xl rounded-tl-3xl shadow-2xl overflow-hidden relative">
                 <img src={col4} alt="" />
