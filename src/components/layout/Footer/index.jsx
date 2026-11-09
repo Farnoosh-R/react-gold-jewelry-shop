@@ -6,17 +6,17 @@ import {
   FaTelegramPlane,
   FaEnvelope,
   FaPhoneAlt,
-  FaMapMarkerAlt ,
+  FaMapMarkerAlt,
 } from "react-icons/fa";
 
 const Footer = () => {
   return (
     <section id="footer" className="bg-[var(--color-primary)] py-10">
       <div className="app-container">
-        <div className="grid grid-cols-1 lg:grid-cols-4">
+        <div className="grid grid-cols-1 lg:grid-cols-5">
           <div className="flex flex-col gap-1 justify-center items-center">
             <img src={logo} alt="logo" className="w-20" />
-            <div className="tracking-[10px] text-lg">JADORA</div>
+            <div className="tracking-[10px] text-lg">ZARCHIC</div>
             <div className="text-[var(--color-light)]">
               برای زیبایی‌هایی که هرگز از یاد نمی‌روند
             </div>
@@ -98,42 +98,57 @@ const Footer = () => {
             <div className="text-lg">مقالات منتخب</div>
             <div className="flex flex-col gap-2">
               <Link to={"/"} className="hover:text-[var(--color-secondary)]">
-               راهنمای خرید طلا
+                راهنمای خرید طلا
               </Link>
               <Link
                 to={"/about"}
                 className="hover:text-[var(--color-secondary)]"
               >
-               راز درخشش طلا
+                راز درخشش طلا
               </Link>
               <Link
                 to={"/contact"}
                 className="hover:text-[var(--color-secondary)]"
               >
-               دنیای سنگ‌های قیمتی
+                دنیای سنگ‌های قیمتی
               </Link>
               <Link
                 to={"/store"}
                 className="hover:text-[var(--color-secondary)]"
               >
-               مراقبت از جواهرات
+                مراقبت از جواهرات
               </Link>
             </div>
           </div>
           <div className="flex flex-col gap-4 text-[var(--color-light)]">
             <div className="text-lg">ارتباط با ما</div>
             <div className="flex gap-3">
-                <FaPhoneAlt size={18}/>
-                <div>99898767 - 021</div>
+              <FaPhoneAlt size={18} />
+              <div>99898767 - 021</div>
             </div>
-             <div className="flex gap-3">
-                <FaEnvelope size={18}/>
-                <div>jadora@gmail.com</div>
+            <div className="flex gap-3">
+              <FaEnvelope size={18} />
+              <div>jadora@gmail.com</div>
             </div>
-             <div className="flex gap-3">
-                <FaMapMarkerAlt size={18}/>
-                <div>تهران، خ مطهری، کوچه اول، پلاک پنجم</div>
+            <div className="flex gap-3">
+              <FaMapMarkerAlt size={18} />
+              <div>تهران، خ مطهری، کوچه اول، پلاک پنجم</div>
             </div>
+          </div>
+          <div className="text-white">
+            <a
+              referrerPolicy="origin"
+              target="_blank"
+              href="https://trustseal.enamad.ir/?id=8575801&Code=93VDh2FzRfysIR2X273Jsd74scNcFJif"
+            >
+              <img
+                referrerPolicy="origin"
+                src="https://trustseal.enamad.ir/logo.aspx?id=8575801&Code=93VDh2FzRfysIR2X273Jsd74scNcFJif"
+                alt="نماد اعتماد الکترونیکی"
+                style={{ cursor: "pointer" }}
+                code="93VDh2FzRfysIR2X273Jsd74scNcFJif"
+              />
+            </a>
           </div>
         </div>
       </div>

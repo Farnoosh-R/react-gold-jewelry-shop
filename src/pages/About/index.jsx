@@ -24,39 +24,39 @@ const About = () => {
             <div className="flex gap-10 mt-10">
               <div className="flex gap-2 items-center">
                 <div>
-                  <FaGem size={30} color="var(--color-light)"/>
+                  <FaGem size={30} color="var(--color-primary-muted)"/>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <div className="text-[var(--color-secondary)] font-bold">
+                  <div className="text-[var(--color-light)] font-bold">
                     طراحی ظریف و خاص
                   </div>
-                  <div className="text-[var(--color-light)]">
+                  <div className="text-[var(--color-gray)]">
                     برای سلیقه‌های متفاوت
                   </div>
                 </div>
               </div>
               <div className="flex gap-2 items-center">
                 <div>
-                  <FaShieldAlt size={30} color="var(--color-light)"/>
+                  <FaShieldAlt size={30} color="var(--color-primary-muted)"/>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <div className="text-[var(--color-secondary)] font-bold">
+                  <div className="text-[var(--color-light)] font-bold">
                     اصالت و اطمینان
                   </div>
-                  <div className="text-[var(--color-light)]">
+                  <div className="text-[var(--color-gray)]">
                     تجربه‌ای مطمئن در انتخاب
                   </div>
                 </div>
               </div>
-              <div className="flex gap-2 items-center">
+              <div className="flex gap-2 items-center ">
                 <div>
-                  <FaHeart size={30} color="var(--color-light)"/>
+                  <FaHeart size={30} color="var(--color-primary-muted)"/>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <div className="text-[var(--color-secondary)] font-bold">
+                  <div className="text-[var(--color-light)] font-bold">
                     برای لحظه‌های ماندگار
                   </div>
-                  <div className="text-[var(--color-light)]">
+                  <div className="text-[var(--color-gray)]">
                     انتخاب های به یاد ماندنی
                   </div>
                 </div>

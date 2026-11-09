@@ -7,7 +7,7 @@ const Contact = () => {
   return (
     <div
       id="contact"
-      className="relativ mt-20 w-full h-screen"
+      className="relativ mt-20 w-full min-h-[619px]"
       style={{
         backgroundImage: `url(${contactBg})`,
         backgroundSize: "cover",

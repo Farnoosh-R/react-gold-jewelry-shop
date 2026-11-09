@@ -7,12 +7,14 @@ import About from "./pages/About";
 // import Home from "./pages/home";
 // import Footer from "./components/layout/Footer";
 import Contact from "./pages/contact";
+import ShopCategory from "./pages/shop/ShopCategory";
+import ProductDetail from "./components/product/ProductDetail";
 // import About from "./pages/about";
 // import Blog from "./pages/blog";
 // import SinglePost from "./pages/blog/singlePost";
 
 // export function useScrollAnimation() {
-  
+
 //   const location = useLocation();
 
 //   useEffect(() => {
@@ -49,11 +51,13 @@ function App() {
     <>
       <Navbar />
       <Routes>
-         <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/contact" element={<Contact />} />
-        {/*
         <Route path="/about" element={<About />} />
-        {/* <Route path="/contact" element={<Contact />} />
+        <Route path="/shop/:gender/:category" element={<ShopCategory />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+
+        {/*
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<SinglePost />} /> */}
       </Routes>

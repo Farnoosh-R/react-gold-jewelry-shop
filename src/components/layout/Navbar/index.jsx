@@ -43,7 +43,47 @@ const menuData = [
   },
   {
     label: "فروشگاه",
-    path: "store",
+    children: [
+      {
+        label: "زنانه",
+        path: "/shop/women",
+        children: [
+          { label: "انگشتر", path: "/shop/women/ring" },
+          { label: "پلاک", path: "/shop/women/pendant" },
+          { label: "دستبند", path: "/shop/women/bracelet" },
+          { label: "زنجیر", path: "/shop/women/chain" },
+          { label: "ست", path: "/shop/women/sets" },
+          { label: "گردنبند", path: "/shop/women/necklace" },
+          { label: "گوشواره", path: "/shop/women/earring" },
+        ],
+      },
+      {
+        label: "مردانه",
+        path: "/shop/men",
+        children: [
+          { label: "انگشتر", path: "/shop/men/ring" },
+          { label: "پلاک", path: "/shop/men/pendant" },
+          { label: "دستبند", path: "/shop/men/bracelet" },
+          { label: "زنجیر", path: "/shop/men/chain" },
+          { label: "ست", path: "/shop/men/sets" },
+          { label: "گردنبند", path: "/shop/men/necklace" },
+          { label: "گوشواره", path: "/shop/men/earring" },
+        ],
+      },
+      {
+        label: "یونی‌سکس",
+        path: "/shop/unisex",
+        children: [
+          { label: "انگشتر", path: "/shop/unisex/ring" },
+          { label: "پلاک", path: "/shop/unisex/pendant" },
+          { label: "دستبند", path: "/shop/unisex/bracelet" },
+          { label: "زنجیر", path: "/shop/unisex/chain" },
+          { label: "ست", path: "/shop/unisex/sets" },
+          { label: "گردنبند", path: "/shop/unisex/necklace" },
+          { label: "گوشواره", path: "/shop/unisex/earring" },
+        ],
+      },
+    ],
   },
   {
     label: "مقالات",
