@@ -116,7 +116,7 @@
     margin: 0;
     background: var(--color-primary-dark);
     font-family: "Vazir", sans-serif;
-    color: var(--color-secondary);
+    color: var(--color-light);
     font-size: 14px;
     overflow-x: hidden !important;
     /* text-align: justify; */

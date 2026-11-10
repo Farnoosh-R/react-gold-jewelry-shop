@@ -1,7 +1,16 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getProductById } from "../../../services/productService";
 import Button from "../../shared/Button";
+import {
+  FaGem,
+  FaBalanceScale,
+  FaPalette,
+  FaUser,
+  FaStar,
+} from "react-icons/fa";
+// import { GiGemChain } from "react-icons/gi";
+import { LuLayers3, LuHeart  } from "react-icons/lu";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -41,7 +50,7 @@ const ProductDetail = () => {
   }
 
   const productInfo = {
-    stock: product?.is_in_stock ? "موجود است" : "ناموجود",
+    stock: product?.is_in_stock ? "موجود" : "ناموجود",
 
     gender: product?.attributes?.find((attr) => attr.taxonomy === "pa_gender")
       ?.terms?.[0]?.name,
@@ -64,6 +73,10 @@ const ProductDetail = () => {
     size: product?.attributes?.find((attr) => attr.taxonomy === "pa_size")
       ?.terms?.[0]?.name,
 
+    collection: product?.attributes?.find(
+      (attr) => attr.taxonomy === "pa_collection",
+    )?.terms?.[0]?.name,
+
     weight: product?.weight,
   };
 
@@ -72,56 +85,93 @@ const ProductDetail = () => {
       <div className="app-container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <div className="flex flex-col gap-3">
-            <h2 className="text-[var(--color-light)]">{product.name}</h2>
-            {/* <div
+            <Link
+              to={"#"}
+              className="flex gap-2 border border-[var(--color-secondary)]/40 rounded-2xl w-fit py-1 px-3 items-center"
+            >
+              <LuLayers3 color="var(--color-secondary)" />
+              <div className="flex gap-2">
+                <div>کالکشن</div>
+                <div>{productInfo.collection || "-"}</div>
+              </div>
+            </Link>
+            <h3 className="text-[var(--color-light)]">{product.name}</h3>
+            <div
               dangerouslySetInnerHTML={{
                 __html: product.short_description,
               }}
-            /> */}
-            <div
+            />
+            {/* <div
               className="text-[var(--color-muted)]"
               dangerouslySetInnerHTML={{
                 __html: product.description,
               }}
-            />
-            <div className="flex gap-1">
-              <div>جنسیت:</div>
-              <div>{productInfo.gender}</div>
+            /> */}
+            <div className="flex gap-2 items-center text-[var(--color-secondary)]">
+              <h3 className="">{product.prices?.price}</h3>
+              <div className="text-lg">تومان</div>
             </div>
-            <div className="flex gap-1">
-              <div>وضعیت موجودی:</div>
+
+            <div className="flex gap-2 border border-[var(--color-secondary)]/40 rounded-2xl w-fit py-1 px-3 items-center bg-[var(--color-primary-light)]">
+              <div
+                className={`w-[8px] h-[8px] ${
+                  productInfo.stock ? "bg-green-500" : "bg-red-500"
+                } rounded-full`}
+              ></div>
               <div>{productInfo.stock}</div>
             </div>
-            <div className="flex gap-1">
-              <div>عیار:</div>
-              <div>{productInfo.goldKarat}</div>
+
+            <div className="grid grid-cols-5 py-1 w-[90%] border border-[var(--color-secondary)]/30 rounded-2xl bg-[var(--color-primary-light)]/30">
+              <div className="relative flex flex-col gap-2 items-center justify-center px-3 py-3">
+                <FaStar color="var(--color-secondary)" />
+                <div>سبک</div>
+                <div>{productInfo.style}</div>
+
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 h-16 border-l border-[var(--color-secondary)]/30" />
+              </div>
+
+              <div className="relative flex flex-col gap-2 items-center justify-center px-3 py-3">
+                <FaUser color="var(--color-secondary)" />
+                <div>جنسیت</div>
+                <div>{productInfo.gender}</div>
+
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 h-16 border-l border-[var(--color-secondary)]/30" />
+              </div>
+
+              <div className="relative flex flex-col gap-2 items-center justify-center px-3 py-3">
+                <FaPalette color="var(--color-secondary)" />
+                <div>رنگ طلا</div>
+                <div>{productInfo.goldColor}</div>
+
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 h-16 border-l border-[var(--color-secondary)]/30" />
+              </div>
+
+              <div className="relative flex flex-col gap-2 items-center justify-center px-3 py-3">
+                <FaGem color="var(--color-secondary)" />
+                <div>عیار طلا</div>
+                <div>{productInfo.goldKarat}</div>
+
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 h-16 border-l border-[var(--color-secondary)]/30" />
+              </div>
+
+              <div className="relative flex flex-col gap-2 items-center justify-center px-3 py-3">
+                <FaBalanceScale color="var(--color-secondary)" />
+                <div>وزن</div>
+                <div>{productInfo.weight || "-"}</div>
+              </div>
             </div>
-            <div className="flex gap-1">
-              <div>رنگ:</div>
-              <div>{productInfo.goldColor}</div>
+            <div className="flex gap-3 items-center justify-center">
+              <Button variant="secondary" btnType="gradient">
+                افزودن به سبد خرید
+              </Button>
+              <div className="border border-[var(--color-secondary)]/30 rounded-full p-2 w-fit h-fit bg-[var(--color-primary-light)]/30 "><LuHeart color="var(--color-secondary)"/></div>
             </div>
-            <div className="flex gap-1">
-              <div>سبک:</div>
-              <div>{productInfo.style}</div>
-            </div>
-            <div className="flex gap-1">
-              <div>نوع نگین:</div>
-              <div>{productInfo.stoneType}</div>
-            </div>
-            <div className="flex gap-1">
-              <div>سایز:</div>
-              <div>{productInfo.size}</div>
-            </div>
-            <div className="flex gap-1">
-              <div>قیمت:</div>
-              <div>{product.prices?.price} تومان</div>
-            </div>
-            <Button variant="secondary" btnType="gradient">
-              افزودن به سبد خرید
-            </Button>
           </div>
+
+          {/* ********************************** */}
+
           <div>
-            <div className="img-holder rounded-2xl h-80 overflow-hidden">
+            <div className="img-holder rounded-2xl h-100 overflow-hidden">
               <img
                 className="object-cover w-full h-full"
                 src={product.images?.[0]?.src}
