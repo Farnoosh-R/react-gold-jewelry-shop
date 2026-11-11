@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import logo from "../../../../src/assets/images/logo.png";
 // import Button from "../../shared/Button/index.jsx";
 import { FaPhone } from "react-icons/fa";
+import { LuShoppingCart } from "react-icons/lu";
+import { useCart } from "../../../context/CartContext.jsx";
 
 const menuData = [
   {
@@ -103,6 +105,10 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  const { cartItems } = useCart();
+
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -161,6 +167,20 @@ const Navbar = () => {
         </div>
 
         <div className="flex gap-3 items-center">
+          {/* Cart */}
+          <Link
+            to="/cart"
+            className="relative flex items-center justify-center w-10 h-10 text-[var(--color-secondary)]"
+            aria-label="سبد خرید"
+          >
+            <LuShoppingCart size={24} />
+
+            {cartCount > 0 && (
+              <span className="absolute -top-1 -right-1 flex items-center justify-center min-w-5 h-5 px-1 rounded-full bg-[var(--color-secondary)] text-[var(--color-primary)] text-xs font-bold">
+                {cartCount}
+              </span>
+            )}
+          </Link>
           <div className="flex flex-col gap-2">
             <div className="text-[var(--color-light)] text-xs">
               مشاوره و پشتیبانی

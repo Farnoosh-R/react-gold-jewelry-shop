@@ -10,14 +10,20 @@ import {
   FaStar,
 } from "react-icons/fa";
 // import { GiGemChain } from "react-icons/gi";
-import { LuLayers3, LuHeart  } from "react-icons/lu";
+import { LuLayers3, LuHeart } from "react-icons/lu";
+import QuantitySelector from "../../shared/QuantitySelector";
+import { formatPrice } from "../../shared/utils/formatPrice";
+import { useCart } from "../../../context/CartContext";
 
 const ProductDetail = () => {
   const { id } = useParams();
-
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // const quantity = getProductQuantity(product?.id);
+  const [selectedQuantity, setSelectedQuantity] = useState(1);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -36,6 +42,15 @@ const ProductDetail = () => {
 
     fetchProduct();
   }, [id]);
+
+  const handleAddToCart = async () => {
+    try {
+      await addToCart(product, selectedQuantity);
+      alert("محصول با موفقیت به سبد خرید اضافه شد.");
+    } catch (error) {
+      alert("افزودن محصول به سبد خرید ناموفق بود.");
+    }
+  };
 
   if (loading) {
     return <div>در حال دریافت محصول...</div>;
@@ -84,7 +99,7 @@ const ProductDetail = () => {
     <div className="page">
       <div className="app-container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-4">
             <Link
               to={"#"}
               className="flex gap-2 border border-[var(--color-secondary)]/40 rounded-2xl w-fit py-1 px-3 items-center"
@@ -108,7 +123,7 @@ const ProductDetail = () => {
               }}
             /> */}
             <div className="flex gap-2 items-center text-[var(--color-secondary)]">
-              <h3 className="">{product.prices?.price}</h3>
+              <h3 className="">{formatPrice(product.prices?.price)}</h3>
               <div className="text-lg">تومان</div>
             </div>
 
@@ -160,18 +175,28 @@ const ProductDetail = () => {
                 <div>{productInfo.weight || "-"}</div>
               </div>
             </div>
-            <div className="flex gap-3 items-center justify-center">
-              <Button variant="secondary" btnType="gradient">
+            <div className="flex gap-3 items-center ">
+              <QuantitySelector
+                quantity={selectedQuantity}
+                onChange={setSelectedQuantity}
+              />
+              <Button
+                variant="secondary"
+                btnType="gradient"
+                onClick={handleAddToCart}
+              >
                 افزودن به سبد خرید
               </Button>
-              <div className="border border-[var(--color-secondary)]/30 rounded-full p-2 w-fit h-fit bg-[var(--color-primary-light)]/30 "><LuHeart color="var(--color-secondary)"/></div>
+              <div className="border border-[var(--color-secondary)]/30 rounded-full p-2 w-fit h-fit bg-[var(--color-primary-light)]/30 ">
+                <LuHeart color="var(--color-secondary)" />
+              </div>
             </div>
           </div>
 
           {/* ********************************** */}
 
           <div>
-            <div className="img-holder rounded-2xl h-100 overflow-hidden">
+            <div className="img-holder rounded-2xl h-110 overflow-hidden">
               <img
                 className="object-cover w-full h-full"
                 src={product.images?.[0]?.src}

@@ -4,12 +4,11 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/home";
 import Footer from "./components/layout/Footer";
 import About from "./pages/About";
-// import Home from "./pages/home";
-// import Footer from "./components/layout/Footer";
 import Contact from "./pages/contact";
 import ShopCategory from "./pages/shop/ShopCategory";
 import ProductDetail from "./components/product/ProductDetail";
-// import About from "./pages/about";
+import Cart from "./pages/cart";
+import Checkout from "./pages/checkout";
 // import Blog from "./pages/blog";
 // import SinglePost from "./pages/blog/singlePost";
 
@@ -57,6 +56,8 @@ function App() {
         <Route path="/shop/:gender/:category" element={<ShopCategory />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/shop/collection/:collection" element={<ShopCategory />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
 
         {/*
         <Route path="/blog" element={<Blog />} />

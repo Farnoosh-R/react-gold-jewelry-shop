@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
+import { formatPrice } from "../../shared/utils/formatPrice";
 
 const ProductCard = ({ product }) => {
   return (
@@ -21,7 +22,7 @@ const ProductCard = ({ product }) => {
                 <FaShoppingCart color="var(--color-secondary)" />
               </div>
               <div className="flex gap-1">
-                <div>{product.prices?.price}</div>
+                <div>{formatPrice(product.prices?.price)}</div>
                 <div>تومان</div>
               </div>
             </div>
