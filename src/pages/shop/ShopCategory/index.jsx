@@ -9,6 +9,22 @@ const genderMap = {
   unisex: "unisex",
 };
 
+const genderLabels = {
+  women: "زنانه",
+  men: "مردانه",
+  unisex: "یونی‌سکس",
+};
+
+const categoryLabels = {
+  ring: "انگشتر",
+  pendant: "پلاک",
+  bracelet: "دستبند",
+  chain: "زنجیر",
+  sets: "ست",
+  necklace: "گردنبند",
+  earring: "گوشواره",
+};
+
 const ShopCategory = () => {
   const { gender, category } = useParams();
 
@@ -20,6 +36,7 @@ const ShopCategory = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
+        setError(null);
 
         const data = await getProducts({
           category,
@@ -40,54 +57,42 @@ const ShopCategory = () => {
     fetchProducts();
   }, [category, gender]);
 
-  if (loading) {
-    return <div>در حال دریافت محصولات...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
-
-  const genderLabels = {
-    women: "زنانه",
-    men: "مردانه",
-    unisex: "یونی‌سکس",
-  };
-
-  const categoryLabels = {
-    ring: "انگشتر",
-    pendant: "پلاک",
-    bracelet: "دستبند",
-    chain: "زنجیر",
-    sets: "ست",
-    necklace: "گردنبند",
-    earring: "گوشواره",
-  };
-
-  if (products.length === 0) {
-    return (
-      <div className="page">
-        <div className="app-container">
-          <h1>
-            {categoryLabels[category]} {genderLabels[gender]}
-          </h1>
-
-          <p>در حال حاضر محصولی در این دسته‌بندی موجود نیست.</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="page">
-      <div className="app-container">
-        <h1>
-          {categoryLabels[category]} {genderLabels[gender]}
-        </h1>
+    <div className="page min-h-[calc(100vh-200px)]">
+      <div className="app-container py-16">
+        {loading ? (
+          <div className="flex min-h-[400px] items-center justify-center">
+            <p className="text-lg text-[var(--color-secondary)]/50">
+              در حال دریافت محصولات...
+            </p>
+          </div>
+        ) : error ? (
+          <div className="flex min-h-[400px] items-center justify-center">
+            <p className="text-red-500">{error}</p>
+          </div>
+        ) : products.length === 0 ? (
+          <>
+            <h1>
+              {categoryLabels[category]} {genderLabels[gender]}
+            </h1>
 
-        <p>تعداد محصولات: {products.length}</p>
+            <p className="mt-4">
+              در حال حاضر محصولی در این دسته‌بندی موجود نیست.
+            </p>
+          </>
+        ) : (
+          <>
+            <h1>
+              {categoryLabels[category]} {genderLabels[gender]}
+            </h1>
 
-        <ProductGrid products={products} />
+            <p className="mt-4">
+              تعداد محصولات: {products.length}
+            </p>
+
+            <ProductGrid products={products} />
+          </>
+        )}
       </div>
     </div>
   );

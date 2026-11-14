@@ -73,7 +73,7 @@ const menuData = [
         ],
       },
       {
-        label: "یونی‌سکس",
+        label: "اسپرت",
         path: "/shop/unisex",
         children: [
           { label: "انگشتر", path: "/shop/unisex/ring" },
@@ -176,7 +176,7 @@ const Navbar = () => {
             <LuShoppingCart size={24} />
 
             {cartCount > 0 && (
-              <span className="absolute -top-1 -right-1 flex items-center justify-center min-w-5 h-5 px-1 rounded-full bg-[var(--color-secondary)] text-[var(--color-primary)] text-xs font-bold">
+              <span className="absolute -top-1 -right-1 flex items-center justify-center min-w-5 h-5 px-1 rounded-full bg-red-500 text-[var(--color-light)] text-xs font-bold">
                 {cartCount}
               </span>
             )}
