@@ -14,17 +14,25 @@ const About = () => {
               <div class="text-[var(--color-secondary)]/40 tracking-[10px]">
                 Our Story
               </div>
-              <h2 className="text-[var(--color-secondary)]">درباره ما</h2>
+              <h2 className="text-[var(--color-secondary)]">درباره زرشیک</h2>
             </div>
             <div className="text-[var(--color-light)] leading-8">
-              ما باور داریم هر قطعه طلا، فراتر از یک زیور، بازتابی از سلیقه و
-              شخصیت شماست. مجموعه‌ای از طراحی‌های ظریف و ماندگار را گرد هم
-              آورده‌ایم تا لحظه‌های خاص زندگی‌تان، درخشان‌تر شوند.
+              در زرشیک باور داریم هر قطعه طلا، فراتر از یک زیور، بازتابی از
+              سلیقه و شخصیت شماست. ما مجموعه‌ای از زیورآلات طلا با طراحی‌های
+              ظریف، ماندگار و چشم‌نواز را گرد هم آورده‌ایم تا انتخاب و خرید
+              آنلاین طلا، تجربه‌ای ساده و لذت‌بخش باشد. زرشیک تلاش می‌کند با
+              ارائه مجموعه‌ای متنوع از انگشتر طلا، گردنبند طلا، دستبند طلا،
+              گوشواره طلا و سایر زیورآلات، انتخابی متناسب با سلیقه و سبک زندگی
+              هر فرد فراهم کند. هر طراحی با نگاهی به زیبایی، ظرافت و ماندگاری
+              انتخاب شده تا بتوانید برای لحظه‌های خاص زندگی، زیوری منحصربه‌فرد
+              انتخاب کنید. برای ما طلا فقط یک زیور نیست؛ بخشی از داستان، سبک و
+              لحظه‌های ماندگار زندگی شماست. زرشیک اینجاست تا این لحظه‌ها را
+              درخشان‌تر کند.
             </div>
-            <div className="flex gap-10 mt-10">
+            <div className="flex flex-col lg:flex-row justify-center items-center gap-10 mt-10">
               <div className="flex gap-2 items-center">
                 <div>
-                  <FaGem size={30} color="var(--color-primary-muted)"/>
+                  <FaGem size={30} color="var(--color-secondary)" />
                 </div>
                 <div className="flex flex-col gap-1">
                   <div className="text-[var(--color-light)] font-bold">
@@ -37,7 +45,7 @@ const About = () => {
               </div>
               <div className="flex gap-2 items-center">
                 <div>
-                  <FaShieldAlt size={30} color="var(--color-primary-muted)"/>
+                  <FaShieldAlt size={30} color="var(--color-secondary)" />
                 </div>
                 <div className="flex flex-col gap-1">
                   <div className="text-[var(--color-light)] font-bold">
@@ -50,7 +58,7 @@ const About = () => {
               </div>
               <div className="flex gap-2 items-center ">
                 <div>
-                  <FaHeart size={30} color="var(--color-primary-muted)"/>
+                  <FaHeart size={30} color="var(--color-secondary)" />
                 </div>
                 <div className="flex flex-col gap-1">
                   <div className="text-[var(--color-light)] font-bold">

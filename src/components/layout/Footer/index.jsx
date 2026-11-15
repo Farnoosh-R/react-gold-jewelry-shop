@@ -16,9 +16,9 @@ const Footer = () => {
         <div className="grid grid-cols-1 lg:grid-cols-5">
           <div className="flex flex-col gap-1 justify-center items-center">
             <img src={logo} alt="logo" className="w-20" />
-            <div className="tracking-[10px] text-lg">ZARCHIC</div>
+            <div className="tracking-[10px] text-lg text-[var(--color-light)]/30">ZARCHIC</div>
             <div className="text-[var(--color-light)]">
-              برای زیبایی‌هایی که هرگز از یاد نمی‌روند
+              برای زیبایی‌ که هرگز از یاد نمی‌رود
             </div>
             <div className="flex gap-4 mt-4">
               <div

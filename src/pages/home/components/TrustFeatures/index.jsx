@@ -7,7 +7,7 @@ import {
 
 const TrustFeatures = () => {
   return (
-    <section id="trust-features" className="bg-[var(--color-primary)] p-4">
+    <section id="trust-features" className="bg-[var(--color-primary)] p-4 mb-20">
       <div className="app-container">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 place-items-start lg:place-items-center">
           <div className="flex gap-2 items-center">

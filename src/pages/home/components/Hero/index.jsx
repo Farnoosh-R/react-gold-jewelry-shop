@@ -2,7 +2,7 @@ import Button from "../../../../components/shared/Button";
 import hero from "../../assets/images/hero.webp";
 
 const Hero = () => {
-return ( <section id="hero" className="-mt-20"> <div className="relative w-full h-[65vh] lg:h-screen rounded-bl-[350px] overflow-hidden">
+return ( <section id="hero" className=""> <div className="relative w-full h-[65vh] lg:h-screen rounded-bl-[350px] overflow-hidden">
 
     {/* Background Image */}
     <div
@@ -16,7 +16,7 @@ return ( <section id="hero" className="-mt-20"> <div className="relative w-full 
 
     {/* Content */}
     <div className="app-container relative h-full">
-      <div className="flex flex-col gap-3 absolute left-0 top-35 max-[767px]:left-auto max-[767px]:right-5">
+      <div className="flex flex-col gap-3 absolute left-0 top-30 lg:top-50 max-[767px]:left-auto max-[767px]:right-5">
         <span
           className="bg-clip-text text-transparent tracking-[20px]"
           style={{
@@ -28,10 +28,10 @@ return ( <section id="hero" className="-mt-20"> <div className="relative w-full 
 
         <div>
           <h1 className="text-[var(--color-secondary)]">
-            درخشش متفاوت
+          زیورآلات طلا
           </h1>
           <h1 className="text-[var(--color-light)]">
-            را انتخاب کن
+         زرشیک
           </h1>
         </div>
 

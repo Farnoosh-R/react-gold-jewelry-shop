@@ -87,7 +87,7 @@ const ProductDetail = () => {
 
   return (
     <div className="page min-h-[calc(100vh-200px)]">
-      <div className="app-container py-16">
+      <div className="app-container">
 
         {loading ? (
           <div className="flex min-h-[500px] items-center justify-center">

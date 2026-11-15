@@ -6,7 +6,7 @@ import TrustFeatures from "./components/TrustFeatures";
 
 const Home = () => {
   return (
-    <div id="home" className="page flex flex-col gap-10 lg:gap-30">
+    <div id="home" className="flex flex-col gap-10 lg:gap-30">
       <Hero />
        <Collections />
       <NewArrivals />

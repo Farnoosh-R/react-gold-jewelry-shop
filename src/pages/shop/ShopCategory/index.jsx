@@ -59,7 +59,7 @@ const ShopCategory = () => {
 
   return (
     <div className="page min-h-[calc(100vh-200px)]">
-      <div className="app-container lg:py-16">
+      <div className="app-container">
         {loading ? (
           <div className="flex min-h-[400px] items-center justify-center">
             <p className="text-lg text-[var(--color-secondary)]/50">
