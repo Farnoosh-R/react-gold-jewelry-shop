@@ -23,7 +23,6 @@ const ProductCard = ({ product }) => {
               </div>
               <div className="flex gap-1">
                 <div>{formatPrice(product.prices?.price)}</div>
-                <div>تومان</div>
               </div>
             </div>
           </div>

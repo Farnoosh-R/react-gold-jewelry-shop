@@ -7,7 +7,7 @@ const Contact = () => {
   return (
     <div
       id="contact"
-      className="relativ mt-20 w-full min-h-[619px]"
+      className="relativ mt-20 pb-10 w-full min-h-[619px]"
       style={{
         backgroundImage: `url(${contactBg})`,
         backgroundSize: "cover",
@@ -24,7 +24,7 @@ const Contact = () => {
             <h2 className="text-[var(--color-secondary)]">تماس با ما</h2>
             <TitleAccent />
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 place-items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 place-items-center">
             <div className="">
               <div className="flex flex-col leading-18 text-[70px] text-[var(--color-primary-muted)] opacity-20">
                 <div>GET IN</div>

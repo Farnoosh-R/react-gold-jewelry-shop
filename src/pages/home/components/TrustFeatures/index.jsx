@@ -11,21 +11,21 @@ const TrustFeatures = () => {
       <div className="app-container">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 place-items-start lg:place-items-center">
           <div className="flex gap-2 items-center">
-            <FaCertificate size={30} />
+            <FaCertificate size={30} color="var(--color-secondary)"/>
             <div className="flex flex-col gap-1">
               <div className="text-white text-lg">۱۰۰٪ اصالت کالا</div>
-              <div className="text-[var(--color-light)]">جواهرات دارای نشان استاندارد و تأییدیه اصالت</div>
+              <div className="text-[var(--color-light)]">جواهرات دارای نشان استاندارد</div>
             </div>
           </div>
                <div className="flex gap-2 items-center">
-            <FaTruck size={30} />
+            <FaTruck size={30} color="var(--color-secondary)"/>
             <div className="flex flex-col gap-1">
               <div className="text-white text-lg">ارسال رایگان</div>
               <div className="text-[var(--color-light)]">برای سفارش‌های بالای ۴,۹۹۹ روپیه</div>
             </div>
           </div>
           <div className="flex gap-2 items-center">
-            <FaSyncAlt   size={30} />
+            <FaSyncAlt size={30} color="var(--color-secondary)"/>
             <div className="flex flex-col gap-1">
               <div className="text-white text-lg">بازگشت آسان کالا</div>
               <div className="text-[var(--color-light)]">۳۰ روز ضمانت بازگشت وجه</div>
@@ -33,7 +33,7 @@ const TrustFeatures = () => {
           </div>
      
           <div className="flex gap-2 items-center">
-            <FaCreditCard size={30} />
+            <FaCreditCard size={30} color="var(--color-secondary)"/>
             <div className="flex flex-col gap-1">
               <div className="text-white text-lg">پرداخت امن</div>
               <div className="text-[var(--color-light)]">پرداخت کاملاً امن و مطمئن</div>

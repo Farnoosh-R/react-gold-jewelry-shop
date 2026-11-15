@@ -1,7 +1,7 @@
 
 import Button from '../../../../components/shared/Button';
-import offerLeft from '../../assets/images/offerLeft.png'
-import offerRight from '../../assets/images/offerRight.png'
+import offerLeft from '../../assets/images/offerLeft.webp'
+import offerRight from '../../assets/images/offerRight.webp'
 
 const Offers = () => {
   return (

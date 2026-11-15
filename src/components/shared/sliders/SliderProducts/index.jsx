@@ -4,6 +4,7 @@ import { Pagination, Autoplay, Navigation } from "swiper/modules";
 import "swiper/css/pagination";
 import { FaShoppingCart } from "react-icons/fa";
 import "swiper/css/navigation";
+import { Link } from "react-router-dom";
 
 export default function SliderProducts({ items }) {
   return (
@@ -33,6 +34,7 @@ export default function SliderProducts({ items }) {
       >
         {items.map((item) => (
           <SwiperSlide key={item.id}>
+            <Link to={`/product/${item.id}`}>
             <div className="relative h-auto">
               <div className="flex flex-col text-white">
                 <div className="relative overflow-hidden rounded-tr-xl rounded-tl-xl h-[200px]">
@@ -45,7 +47,7 @@ export default function SliderProducts({ items }) {
                 <div className="flex flex-col items-center gap-2 p-5 bg-[var(--color-primary)] rounded-br-xl rounded-bl-xl">
                   <div className="text-[var(--color-secondary)]">{item.title}</div>
 
-                  <div className="flex justify-between gap-25 items-center">
+                  <div className="flex justify-between gap-10 items-center">
                     <div className="bg-[var(--color-primary-dark)] p-2 rounded-lg">
                       <FaShoppingCart color="var(--color-secondary)" />
                     </div>
@@ -54,6 +56,7 @@ export default function SliderProducts({ items }) {
                 </div>
               </div>
             </div>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>
