@@ -1,3 +1,4 @@
+import AboutZarchic from "./components/AboutZarchic";
 import Collections from "./components/Collections";
 import Hero from "./components/Hero";
 import NewArrivals from "./components/NewArrivals";
@@ -10,6 +11,7 @@ const Home = () => {
       <Hero />
        <Collections />
       <NewArrivals />
+      <AboutZarchic />
       <Offers />
       <TrustFeatures />
     </div>

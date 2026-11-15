@@ -78,7 +78,7 @@ const Footer = () => {
                 to={"/about"}
                 className="hover:text-[var(--color-secondary)]"
               >
-                درباره ما
+               درباره زرشیک
               </Link>
               <Link
                 to={"/contact"}
