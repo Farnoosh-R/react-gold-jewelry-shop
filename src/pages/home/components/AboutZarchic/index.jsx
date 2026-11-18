@@ -3,7 +3,7 @@ import logo from "../../../../assets/images/logo.png";
 
 const AboutZarchic = () => {
   return (
-    <section id="about-zarchic" className="">
+    <section id="about-zarchic" className="scroll-anim" style={{ "--from": "translateY(-100px)" }}>
       <div className="app-container border border-[var(--color-secondary)]/10 py-15 rounded-4xl">
         <div className="grid grid-cols-1 lg:grid-cols-4">
           <div className="col-span-1 lg:border-l-2 lg:border-[var(--color-secondary)]/30">

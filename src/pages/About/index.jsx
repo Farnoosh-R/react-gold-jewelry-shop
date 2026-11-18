@@ -9,7 +9,7 @@ const About = () => {
     <div id="about" className="page">
       <div className="app-container">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5 scroll-anim" style={{ "--from": "translateX(100px)" }}>
             <div className="flex flex-col">
               <div class="text-[var(--color-secondary)]/40 tracking-[10px]">
                 Our Story
@@ -72,7 +72,7 @@ const About = () => {
             </div>
           </div>
           {/* ------------------------------------------------------------------------ */}
-          <div className="relative flex justify-center gap-1">
+          <div className="relative flex justify-center gap-1 scroll-anim" style={{ "--from": "translateX(-100px)" }}>
             <div className="flex flex-col justify-center">
               <div className="w-70 h-75 overflow-hidden rounded-tl-[50px] rounded-tr-[50px] rounded-bl-[50px]">
                 <img src={about2} className="object-cover w-full" alt="" />

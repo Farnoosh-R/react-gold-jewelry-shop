@@ -25,13 +25,13 @@ const Contact = () => {
             <TitleAccent />
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 place-items-center">
-            <div className="">
+            <div className="scroll-anim" style={{ "--from": "translateX(-100px)" }}>
               <div className="flex flex-col leading-18 text-[70px] text-[var(--color-primary-muted)] opacity-20">
                 <div>GET IN</div>
                 <div>TOUCH</div>
               </div>
             </div>
-            <div className="flex flex-col gap-5 bg-[var(--color-primary-light)] px-10 py-7 rounded-2xl">
+            <div className="flex flex-col gap-5 bg-[var(--color-primary-light)] px-10 py-7 rounded-2xl scroll-anim" style={{ "--from": "translateX(-200px)" }}>
               <FaHeadset color="var(--color-primary-muted)" size={50} />
               <div className="flex flex-col gap-1">
                 <div className="text-lg text-[var(--color-light)]">
@@ -45,7 +45,7 @@ const Contact = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-5 bg-[var(--color-primary-light)] px-10 py-7 rounded-2xl">
+            <div className="flex flex-col gap-5 bg-[var(--color-primary-light)] px-10 py-7 rounded-2xl scroll-anim" style={{ "--from": "translateX(-300px)" }}>
               <LuClock color="var(--color-primary-muted)" size={50} />
               <div className="flex flex-col gap-1">
                 <div className="text-lg text-[var(--color-light)]">
@@ -57,7 +57,7 @@ const Contact = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-5 bg-[var(--color-primary-light)] px-10 py-7 rounded-2xl">
+            <div className="flex flex-col gap-5 bg-[var(--color-primary-light)] px-10 py-7 rounded-2xl scroll-anim" style={{ "--from": "translateX(-400px)" }}>
               <LuMapPin color="var(--color-primary-muted)" size={50} />
               <div className="flex flex-col gap-1">
                 <div className="text-lg text-[var(--color-light)]">

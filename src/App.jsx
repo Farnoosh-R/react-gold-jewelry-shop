@@ -9,42 +9,41 @@ import ShopCategory from "./pages/shop/ShopCategory";
 import ProductDetail from "./components/product/ProductDetail";
 import Cart from "./pages/cart";
 import Checkout from "./pages/checkout";
-// import Blog from "./pages/blog";
-// import SinglePost from "./pages/blog/singlePost";
+import Blog from "./pages/blog/Blog";
+import BlogDetail from "./pages/blog/BlogDetail";
 
-// export function useScrollAnimation() {
+export function useScrollAnimation() {
+  const location = useLocation();
 
-//   const location = useLocation();
+  useEffect(() => {
+    const elements = document.querySelectorAll(".scroll-anim");
 
-//   useEffect(() => {
-//     const elements = document.querySelectorAll(".scroll-anim");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+          } else {
+            entry.target.classList.remove("show");
+          }
+        });
+      },
+      { threshold: 0.2 },
+    );
 
-//     const observer = new IntersectionObserver(
-//       (entries) => {
-//         entries.forEach((entry) => {
-//           if (entry.isIntersecting) {
-//             entry.target.classList.add("show");
-//           } else {
-//             entry.target.classList.remove("show");
-//           }
-//         });
-//       },
-//       { threshold: 0.2 },
-//     );
+    elements.forEach((el) => observer.observe(el));
 
-//     elements.forEach((el) => observer.observe(el));
-
-//     return () => observer.disconnect();
-//   }, [location.pathname]);
-// }
+    return () => observer.disconnect();
+  }, [location.pathname]);
+}
 
 function App() {
-  // useScrollAnimation();
-  //   const { pathname } = useLocation();
+  useScrollAnimation();
+  const { pathname } = useLocation();
 
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, [pathname]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <>
@@ -58,10 +57,8 @@ function App() {
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
-
-        {/*
         <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:slug" element={<SinglePost />} /> */}
+        <Route path="/blog/:slug" element={<BlogDetail />} />
       </Routes>
       <Footer />
     </>

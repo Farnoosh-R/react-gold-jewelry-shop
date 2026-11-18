@@ -14,7 +14,7 @@ const Collections = () => {
             <h2 className="text-[var(--color-secondary)]">کالکشن ها</h2>
             <TitleAccent />
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 scroll-anim" style={{ "--from": "translateX(-100px)" }}>
           <div className="flex justify-center lg:justify-end">
             
             <Link className="flex flex-col w-3/5 h-[300px] text-center group">
@@ -42,7 +42,7 @@ const Collections = () => {
             </Link>
           </div>
         </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 scroll-anim" style={{ "--from": "translateX(100px)" }}>
           <div className="flex justify-center lg:justify-end">
             <Link className="flex flex-col w-3/5 h-[300px] text-center group">
               <div className="image-holder rounded-tr-3xl rounded-tl-3xl shadow-2xl overflow-hidden relative">

@@ -2,7 +2,7 @@ import Button from "../../../../components/shared/Button";
 import hero from "../../assets/images/hero.webp";
 
 const Hero = () => {
-return ( <section id="hero" className=""> <div className="relative w-full h-[65vh] lg:h-screen rounded-bl-[350px] overflow-hidden">
+return ( <section id="hero" className=""> <div className="relative w-full h-[65vh] lg:h-screen rounded-bl-[350px] overflow-hidden scroll-anim" style={{ "--from": "opacity(0)" }}>
 
     {/* Background Image */}
     <div

@@ -31,6 +31,10 @@ const ProductDetail = () => {
 
         const data = await getProductById(id);
 
+
+      console.log("PRODUCT:", data);
+      console.log("WEIGHT:", data?.weight);
+
         setProduct(data);
       } catch (error) {
         setError(error.message);
@@ -155,7 +159,7 @@ const ProductDetail = () => {
 
                 <div className="relative flex flex-col gap-2 items-center justify-center px-3 py-3">
                   <FaStar color="var(--color-secondary)" />
-                  <div>سبک</div>
+                  <div className="text-[var(--color-secondary)]">سبک</div>
                   <div>{productInfo.style || "-"}</div>
 
                   <div className="absolute left-0 top-1/2 -translate-y-1/2 h-16 border-l border-[var(--color-secondary)]/30" />
@@ -163,15 +167,14 @@ const ProductDetail = () => {
 
                 <div className="relative flex flex-col gap-2 items-center justify-center px-3 py-3">
                   <FaUser color="var(--color-secondary)" />
-                  <div>جنسیت</div>
+                  <div className="text-[var(--color-secondary)]">جنسیت</div>
                   <div>{productInfo.gender || "-"}</div>
 
                   <div className="absolute left-0 top-1/2 -translate-y-1/2 h-16 border-l border-[var(--color-secondary)]/30" />
                 </div>
-
                 <div className="relative flex flex-col gap-2 items-center justify-center px-3 py-3">
                   <FaPalette color="var(--color-secondary)" />
-                  <div>رنگ طلا</div>
+                  <div className="text-[var(--color-secondary)]">رنگ طلا</div>
                   <div>{productInfo.goldColor || "-"}</div>
 
                   <div className="absolute left-0 top-1/2 -translate-y-1/2 h-16 border-l border-[var(--color-secondary)]/30" />
@@ -179,7 +182,7 @@ const ProductDetail = () => {
 
                 <div className="relative flex flex-col gap-2 items-center justify-center px-3 py-3">
                   <FaGem color="var(--color-secondary)" />
-                  <div>عیار طلا</div>
+                  <div className="text-[var(--color-secondary)]">عیار طلا</div>
                   <div>{productInfo.goldKarat || "-"}</div>
 
                   <div className="absolute left-0 top-1/2 -translate-y-1/2 h-16 border-l border-[var(--color-secondary)]/30" />
@@ -187,8 +190,8 @@ const ProductDetail = () => {
 
                 <div className="relative flex flex-col gap-2 items-center justify-center px-3 py-3">
                   <FaBalanceScale color="var(--color-secondary)" />
-                  <div>وزن</div>
-                  <div>{productInfo.weight || "-"}</div>
+                  <div className="text-[var(--color-secondary)]">وزن</div>
+                  <div>{productInfo.weight ? `${productInfo.weight} گرم` : "-"}</div>
                 </div>
 
               </div>
