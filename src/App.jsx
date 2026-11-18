@@ -11,6 +11,9 @@ import Cart from "./pages/cart";
 import Checkout from "./pages/checkout";
 import Blog from "./pages/blog/Blog";
 import BlogDetail from "./pages/blog/BlogDetail";
+import Shop from "./pages/shop";
+import Collections from "./pages/collections";
+import CollectionDetail from "./pages/collections/collectionDetail";
 
 export function useScrollAnimation() {
   const location = useLocation();
@@ -54,6 +57,9 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/shop/:gender/:category" element={<ShopCategory />} />
         <Route path="/shop/collection/:collection" element={<ShopCategory />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/collections" element={<Collections />} />
+        <Route path="/collections/:slug" element={<CollectionDetail />} />
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
