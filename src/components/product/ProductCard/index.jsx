@@ -4,7 +4,7 @@ import { formatPrice } from "../../shared/utils/formatPrice";
 
 const ProductCard = ({ product }) => {
   return (
-    <Link to={`/product/${product.id}`}>
+    <Link to={`/product/${product.slug}`}>
       <div className="relative h-auto">
         <div className="flex flex-col text-white">
           <div className="relative overflow-hidden rounded-tr-xl rounded-tl-xl h-[200px]">

@@ -56,11 +56,13 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/shop/:gender/:category" element={<ShopCategory />} />
+        <Route path="/shop/category/:category" element={<ShopCategory />} />
         <Route path="/shop/collection/:collection" element={<ShopCategory />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/collections" element={<Collections />} />
         <Route path="/collections/:slug" element={<CollectionDetail />} />
-        <Route path="/product/:id" element={<ProductDetail />} />
+        {/* <Route path="/product/:id" element={<ProductDetail />} /> */}
+        <Route path="/product/:slug" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/blog" element={<Blog />} />

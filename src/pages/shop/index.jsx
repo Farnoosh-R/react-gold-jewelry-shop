@@ -52,7 +52,7 @@ const Shop = () => {
             return (
               <Link
                 key={category.slug}
-                to={`/shop/women/${category.slug}`}
+                to={`/shop/category/${category.slug}`}
                 className="group flex flex-col items-center justify-center gap-3 rounded-2xl border border-[var(--color-secondary)]/20 p-8 text-center transition-all duration-300 hover:bg-[var(--color-primary)] hover:text-[var(--color-secondary)]"
               >
                 <Icon className="text-4xl text-[var(--color-secondary)]" />

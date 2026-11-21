@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getProductById } from "../../../services/productService";
+import {
+  getProductById,
+  getProductBySlug,
+} from "../../../services/productService";
 import Button from "../../shared/Button";
 import {
   FaGem,
@@ -8,6 +11,7 @@ import {
   FaPalette,
   FaUser,
   FaStar,
+  FaPercent,
 } from "react-icons/fa";
 import { LuLayers3, LuHeart } from "react-icons/lu";
 import QuantitySelector from "../../shared/QuantitySelector";
@@ -15,7 +19,8 @@ import { formatPrice } from "../../shared/utils/formatPrice";
 import { useCart } from "../../../context/CartContext";
 
 const ProductDetail = () => {
-  const { id } = useParams();
+  // const { id } = useParams();
+  const { slug } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,11 +34,7 @@ const ProductDetail = () => {
         setLoading(true);
         setError(null);
 
-        const data = await getProductById(id);
-
-
-      console.log("PRODUCT:", data);
-      console.log("WEIGHT:", data?.weight);
+        const data = await getProductBySlug(slug);
 
         setProduct(data);
       } catch (error) {
@@ -44,7 +45,7 @@ const ProductDetail = () => {
     };
 
     fetchProduct();
-  }, [id]);
+  }, [slug]);
 
   const handleAddToCart = async () => {
     try {
@@ -58,9 +59,8 @@ const ProductDetail = () => {
   const productInfo = {
     stock: product?.is_in_stock ? "موجود" : "ناموجود",
 
-    gender: product?.attributes?.find(
-      (attr) => attr.taxonomy === "pa_gender",
-    )?.terms?.[0]?.name,
+    gender: product?.attributes?.find((attr) => attr.taxonomy === "pa_gender")
+      ?.terms?.[0]?.name,
 
     goldKarat: product?.attributes?.find(
       (attr) => attr.taxonomy === "pa_gold-karat",
@@ -70,29 +70,27 @@ const ProductDetail = () => {
       (attr) => attr.taxonomy === "pa_gold-color",
     )?.terms?.[0]?.name,
 
-    style: product?.attributes?.find(
-      (attr) => attr.taxonomy === "pa_style",
-    )?.terms?.[0]?.name,
+    style: product?.attributes?.find((attr) => attr.taxonomy === "pa_style")
+      ?.terms?.[0]?.name,
 
     stoneType: product?.attributes?.find(
       (attr) => attr.taxonomy === "pa_stone-type",
     )?.terms?.[0]?.name,
 
-    size: product?.attributes?.find(
-      (attr) => attr.taxonomy === "pa_size",
-    )?.terms?.[0]?.name,
+    size: product?.attributes?.find((attr) => attr.taxonomy === "pa_size")
+      ?.terms?.[0]?.name,
 
     collection: product?.attributes?.find(
       (attr) => attr.taxonomy === "pa_collection",
     )?.terms?.[0]?.name,
 
     weight: product?.weight,
+    wage: product?.acf?.wage,
   };
 
   return (
     <div className="page min-h-[calc(100vh-200px)]">
       <div className="app-container">
-
         {loading ? (
           <div className="flex min-h-[500px] items-center justify-center">
             <p className="text-lg text-[var(--color-secondary)]/50">
@@ -109,10 +107,8 @@ const ProductDetail = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-
             {/* اطلاعات محصول */}
             <div className="flex flex-col gap-4">
-
               <Link
                 to={"#"}
                 className="flex gap-2 border border-[var(--color-secondary)]/40 rounded-2xl w-fit py-1 px-3 items-center"
@@ -125,9 +121,7 @@ const ProductDetail = () => {
                 </div>
               </Link>
 
-              <h3 className="text-[var(--color-light)]">
-                {product.name}
-              </h3>
+              <h3 className="text-[var(--color-light)]">{product.name}</h3>
 
               <div
                 dangerouslySetInnerHTML={{
@@ -136,18 +130,14 @@ const ProductDetail = () => {
               />
 
               <div className="flex gap-2 items-center text-[var(--color-secondary)]">
-                <h3>
-                  {formatPrice(product.prices?.price)}
-                </h3>
+                <h3>{formatPrice(product.prices?.price)}</h3>
               </div>
 
               {/* وضعیت موجودی */}
               <div className="flex gap-2 border border-[var(--color-secondary)]/40 rounded-2xl w-fit py-1 px-3 items-center bg-[var(--color-primary-light)]">
                 <div
                   className={`w-[8px] h-[8px] ${
-                    product.is_in_stock
-                      ? "bg-green-500"
-                      : "bg-red-500"
+                    product.is_in_stock ? "bg-green-500" : "bg-red-500"
                   } rounded-full`}
                 ></div>
 
@@ -155,8 +145,7 @@ const ProductDetail = () => {
               </div>
 
               {/* مشخصات محصول */}
-              <div className="grid grid-cols-5 py-1 w-[90%] border border-[var(--color-secondary)]/30 rounded-2xl bg-[var(--color-primary-light)]/30">
-
+              <div className="grid grid-cols-6 py-1 w-[90%] border border-[var(--color-secondary)]/30 rounded-2xl bg-[var(--color-primary-light)]/30">
                 <div className="relative flex flex-col gap-2 items-center justify-center px-3 py-3">
                   <FaStar color="var(--color-secondary)" />
                   <div className="text-[var(--color-secondary)]">سبک</div>
@@ -187,13 +176,21 @@ const ProductDetail = () => {
 
                   <div className="absolute left-0 top-1/2 -translate-y-1/2 h-16 border-l border-[var(--color-secondary)]/30" />
                 </div>
-
                 <div className="relative flex flex-col gap-2 items-center justify-center px-3 py-3">
                   <FaBalanceScale color="var(--color-secondary)" />
                   <div className="text-[var(--color-secondary)]">وزن</div>
-                  <div>{productInfo.weight ? `${productInfo.weight} گرم` : "-"}</div>
+                  <div>
+                    {productInfo.weight ? `${productInfo.weight} گرم` : "-"}
+                  </div>
+
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 h-16 border-l border-[var(--color-secondary)]/30" />
                 </div>
 
+                <div className="relative flex flex-col gap-2 items-center justify-center px-3 py-3">
+                  <FaPercent color="var(--color-secondary)" />
+                  <div className="text-[var(--color-secondary)]">اجرت</div>
+                  <div>{productInfo.wage ? `${productInfo.wage}%` : "-"}</div>
+                </div>
               </div>
 
               {/* تعداد + افزودن به سبد */}
@@ -215,7 +212,6 @@ const ProductDetail = () => {
                   <LuHeart color="var(--color-secondary)" />
                 </div>
               </div>
-
             </div>
 
             {/* تصویر محصول */}
@@ -228,10 +224,8 @@ const ProductDetail = () => {
                 />
               </div>
             </div>
-
           </div>
         )}
-
       </div>
     </div>
   );

@@ -48,11 +48,6 @@ const BlogDetail = () => {
     }).format(new Date(date));
   };
 
-  console.log("POST:", post);
-  console.log(
-    "RELATED CATEGORIES FROM POST:",
-    post?.acf?.related_product_categories,
-  );
 
   return (
     <div id="blog-detail" className="page">

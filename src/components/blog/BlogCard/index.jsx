@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 const BlogCard = ({ post }) => {
   const image = post._embedded?.["wp:featuredmedia"]?.[0]?.source_url;
 
-  console.log(post.slug);
-
   return (
     <div className="rounded-[30px] w-[314px] overflow-hidden shadow-brand mb-20 p-2 bg-[var(--color-primary)]">
       {image && (

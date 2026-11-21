@@ -6,13 +6,13 @@ import ProductGrid from "../../../components/product/ProductGrid";
 const genderMap = {
   women: "womens",
   men: "mens",
-  unisex: "unisex",
+  sport: "sport",
 };
 
 const genderLabels = {
   women: "زنانه",
   men: "مردانه",
-  unisex: "یونی‌سکس",
+  sport: "اسپرت",
 };
 
 const categoryLabels = {
@@ -38,13 +38,16 @@ const ShopCategory = () => {
         setLoading(true);
         setError(null);
 
+        // const data = await getProducts({
+        //   category,
+        //   gender: genderMap[gender],
+        // });
         const data = await getProducts({
           category,
-          gender: genderMap[gender],
+          ...(gender && {
+            gender: genderMap[gender],
+          }),
         });
-
-        console.log("Gender:", genderMap[gender]);
-        console.log("API Products:", data);
 
         setProducts(data);
       } catch (error) {
@@ -86,9 +89,7 @@ const ShopCategory = () => {
               {categoryLabels[category]} {genderLabels[gender]}
             </h1>
 
-            <p className="mt-4">
-              تعداد محصولات: {products.length}
-            </p>
+            <p className="mt-4">تعداد محصولات: {products.length}</p>
 
             <ProductGrid products={products} />
           </>
