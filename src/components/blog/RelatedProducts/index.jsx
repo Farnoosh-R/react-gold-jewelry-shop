@@ -1,11 +1,20 @@
-
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { formatPrice } from "../../shared/utils/formatPrice";
+import { calculateProductPrice, formatPrice } from "../../shared/utils/formatPrice";
 import { getProducts } from "../../../services/productService";
+import { getGoldPrice } from "../../../services/goldPriceService";
 
 const RelatedProducts = ({ categories = [] }) => {
   const [products, setProducts] = useState([]);
+  const [goldPrice, setGoldPrice] = useState(null);
+
+  useEffect(() => {
+    getGoldPrice()
+      .then((price) => setGoldPrice(price))
+      .catch((error) => {
+        console.error("GOLD PRICE ERROR:", error);
+      });
+  }, []);
 
   useEffect(() => {
     if (!categories.length) {
@@ -16,9 +25,7 @@ const RelatedProducts = ({ categories = [] }) => {
     const fetchProducts = async () => {
       try {
         const results = await Promise.all(
-          categories.map((category) =>
-            getProducts({ category })
-          )
+          categories.map((category) => getProducts({ category })),
         );
 
         const allProducts = results.flat();
@@ -26,7 +33,7 @@ const RelatedProducts = ({ categories = [] }) => {
         // حذف محصولات تکراری
         const uniqueProducts = [
           ...new Map(
-            allProducts.map((product) => [product.id, product])
+            allProducts.map((product) => [product.id, product]),
           ).values(),
         ];
 
@@ -48,21 +55,35 @@ const RelatedProducts = ({ categories = [] }) => {
           ZARCHIC
         </span>
 
-        <h2 className="text-[var(--color-secondary)] mt-2">
-          محصولات پیشنهادی
-        </h2>
+        <h2 className="text-[var(--color-secondary)] mt-2">محصولات پیشنهادی</h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {products.map((product) => {
           const image =
-            product.images?.[0]?.thumbnail ||
-            product.images?.[0]?.src;
+            product.images?.[0]?.thumbnail || product.images?.[0]?.src;
+
+          const weight = Number(product.weight);
+          const wage = Number(product.acf?.wage);
+
+          const canCalculate =
+            goldPrice !== null &&
+            Number.isFinite(weight) &&
+            weight > 0 &&
+            product.acf?.wage !== null &&
+            product.acf?.wage !== undefined &&
+            product.acf?.wage !== "" &&
+            Number.isFinite(wage);
+
+          const calculatedPrice = canCalculate
+            ? calculateProductPrice(weight, goldPrice, wage)
+            : null;
 
           return (
             <Link
               key={product.id}
-              to={`/product/${product.id}`}
+              // to={`/product/${product.id}`}
+              to={`/product/${product.slug}`}
               className="group"
             >
               <div className="overflow-hidden rounded-3xl bg-[var(--color-primary)]">
@@ -82,7 +103,9 @@ const RelatedProducts = ({ categories = [] }) => {
                   </h3>
 
                   <div className="mt-3 text-[var(--text-secondary)]">
-                    {formatPrice(product.prices?.price)}
+                    {calculatedPrice !== null
+                      ? formatPrice(calculatedPrice)
+                      : "قیمت نامشخص"}
                   </div>
                 </div>
               </div>

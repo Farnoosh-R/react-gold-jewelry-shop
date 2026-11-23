@@ -14,11 +14,6 @@ const BlogDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // useEffect(() => {
-  //   getPostBySlug(slug).then((data) => {
-  //     setPost(data[0]);
-  //   });
-  // }, [slug]);
   useEffect(() => {
     const fetchPost = async () => {
       try {

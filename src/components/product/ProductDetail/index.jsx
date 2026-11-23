@@ -15,8 +15,12 @@ import {
 } from "react-icons/fa";
 import { LuLayers3, LuHeart } from "react-icons/lu";
 import QuantitySelector from "../../shared/QuantitySelector";
-import { formatPrice } from "../../shared/utils/formatPrice";
+import {
+  calculateProductPrice,
+  formatPrice,
+} from "../../shared/utils/formatPrice";
 import { useCart } from "../../../context/CartContext";
+import { getGoldPrice } from "../../../services/goldPriceService";
 
 const ProductDetail = () => {
   // const { id } = useParams();
@@ -27,6 +31,7 @@ const ProductDetail = () => {
 
   const [selectedQuantity, setSelectedQuantity] = useState(1);
   const { addToCart } = useCart();
+  const [goldPrice, setGoldPrice] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -55,6 +60,16 @@ const ProductDetail = () => {
       alert("افزودن محصول به سبد خرید ناموفق بود.");
     }
   };
+
+  useEffect(() => {
+    getGoldPrice()
+      .then((price) => {
+        setGoldPrice(price);
+      })
+      .catch((error) => {
+        console.error("GOLD PRICE ERROR:", error);
+      });
+  }, []);
 
   const productInfo = {
     stock: product?.is_in_stock ? "موجود" : "ناموجود",
@@ -87,6 +102,11 @@ const ProductDetail = () => {
     weight: product?.weight,
     wage: product?.acf?.wage,
   };
+
+  const calculatedPrice =
+    goldPrice !== null && productInfo.weight && productInfo.wage !== undefined
+      ? calculateProductPrice(productInfo.weight, goldPrice, productInfo.wage)
+      : null;
 
   return (
     <div className="page min-h-[calc(100vh-200px)]">
@@ -130,7 +150,11 @@ const ProductDetail = () => {
               />
 
               <div className="flex gap-2 items-center text-[var(--color-secondary)]">
-                <h3>{formatPrice(product.prices?.price)}</h3>
+                <h3>
+                  {calculatedPrice !== null
+                    ? formatPrice(calculatedPrice)
+                    : "در حال محاسبه قیمت..."}
+                </h3>
               </div>
 
               {/* وضعیت موجودی */}

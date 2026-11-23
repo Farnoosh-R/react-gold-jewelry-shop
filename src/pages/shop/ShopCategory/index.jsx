@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProducts } from "../../../services/productService";
 import ProductGrid from "../../../components/product/ProductGrid";
+import { getGoldPrice } from "../../../services/goldPriceService";
 
 const genderMap = {
   women: "womens",
@@ -31,6 +32,17 @@ const ShopCategory = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [goldPrice, setGoldPrice] = useState(null);
+
+  useEffect(() => {
+  getGoldPrice()
+    .then((price) => {
+      setGoldPrice(price);
+    })
+    .catch((error) => {
+      console.error("GOLD PRICE ERROR:", error);
+    });
+}, []);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -91,7 +103,7 @@ const ShopCategory = () => {
 
             <p className="mt-4">تعداد محصولات: {products.length}</p>
 
-            <ProductGrid products={products} />
+            <ProductGrid products={products} goldPrice={goldPrice} />
           </>
         )}
       </div>

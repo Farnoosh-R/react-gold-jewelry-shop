@@ -1,5 +1,37 @@
 const API_URL = "https://zarchic.ir/api/wp-json/wc/store/v1";
 
+// export async function getProducts({ category, gender, collection }) {
+//   const params = new URLSearchParams();
+
+//   if (category) {
+//     params.append("category", category);
+//   }
+
+//   let attributeIndex = 0;
+
+//   if (gender) {
+//     params.append(`attributes[${attributeIndex}][attribute]`, "pa_gender");
+//     params.append(`attributes[${attributeIndex}][slug]`, gender);
+
+//     attributeIndex++;
+//   }
+
+//   if (collection) {
+//     params.append(`attributes[${attributeIndex}][attribute]`, "pa_collection");
+//     params.append(`attributes[${attributeIndex}][slug]`, collection);
+//   }
+
+//   const url = `${API_URL}/products?${params.toString()}`;
+
+//   const res = await fetch(url);
+
+//   if (!res.ok) {
+//     throw new Error(`Request failed: ${res.status}`);
+//   }
+
+//   return res.json();
+// }
+
 export async function getProducts({ category, gender, collection }) {
   const params = new URLSearchParams();
 
@@ -29,7 +61,34 @@ export async function getProducts({ category, gender, collection }) {
     throw new Error(`Request failed: ${res.status}`);
   }
 
-  return res.json();
+  const products = await res.json();
+
+  // دریافت اطلاعات ACF تمام محصولات
+  const productsWithAcf = await Promise.all(
+    products.map(async (product) => {
+      try {
+        const wpRes = await fetch(
+          `https://zarchic.ir/api/wp-json/wp/v2/product/${product.id}`
+        );
+
+        if (!wpRes.ok) {
+          return { ...product, acf: null };
+        }
+
+        const wpProduct = await wpRes.json();
+
+        return {
+          ...product,
+          acf: wpProduct.acf,
+        };
+      } catch (error) {
+        console.error(`ACF ERROR - Product ${product.id}:`, error);
+        return { ...product, acf: null };
+      }
+    })
+  );
+
+  return productsWithAcf;
 }
 
 // export async function getProductById(id) {
@@ -144,5 +203,31 @@ export async function getLatestProducts(limit = 8) {
     throw new Error(`Request failed: ${res.status}`);
   }
 
-  return res.json();
+  const products = await res.json();
+
+  const productsWithAcf = await Promise.all(
+    products.map(async (product) => {
+      try {
+        const wpRes = await fetch(
+          `https://zarchic.ir/api/wp-json/wp/v2/product/${product.id}`
+        );
+
+        if (!wpRes.ok) {
+          return { ...product, acf: null };
+        }
+
+        const wpProduct = await wpRes.json();
+
+        return {
+          ...product,
+          acf: wpProduct.acf,
+        };
+      } catch (error) {
+        console.error(`ACF ERROR - Product ${product.id}:`, error);
+        return { ...product, acf: null };
+      }
+    })
+  );
+
+  return productsWithAcf;
 }
