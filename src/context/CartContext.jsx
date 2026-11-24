@@ -17,6 +17,21 @@ export const CartProvider = ({ children }) => {
 
     return savedCart ? JSON.parse(savedCart) : [];
   });
+  const [loadingItems, setLoadingItems] = useState({});
+  const startItemLoading = (productId, status) => {
+  setLoadingItems((prev) => ({
+    ...prev,
+    [productId]: status,
+  }));
+};
+
+const stopItemLoading = (productId) => {
+  setLoadingItems((prev) => {
+    const updated = { ...prev };
+    delete updated[productId];
+    return updated;
+  });
+};
 
   const addToCart = async (product, quantity = 1) => {
     try {
@@ -85,97 +100,200 @@ export const CartProvider = ({ children }) => {
     return cartItems.find((item) => item.id === productId)?.quantity || 0;
   };
 
+  // const removeFromCart = async (productId) => {
+  //   try {
+  //     const item = cartItems.find((item) => item.id === productId);
+  //     console.log("CART ITEM:", item);
+
+  //     if (!item?.key) {
+  //       throw new Error("Cart item key not found");
+  //     }
+
+  //     await removeWooCartItem(item.key);
+
+  //     setCartItems((prevItems) =>
+  //       prevItems.filter((cartItem) => cartItem.id !== productId),
+  //     );
+  //   } catch (error) {
+  //     console.error("Remove cart item error:", error);
+  //     alert("حذف محصول از سبد خرید انجام نشد.");
+  //   }
+  // };
   const removeFromCart = async (productId) => {
-    try {
-      const item = cartItems.find((item) => item.id === productId);
-      console.log("CART ITEM:", item);
+  startItemLoading(productId, "removing");
 
-      if (!item?.key) {
-        throw new Error("Cart item key not found");
-      }
+  try {
+    const item = cartItems.find((item) => item.id === productId);
 
+    if (!item?.key) {
+      throw new Error("Cart item key not found");
+    }
+
+    await removeWooCartItem(item.key);
+
+    setCartItems((prevItems) =>
+      prevItems.filter((cartItem) => cartItem.id !== productId),
+    );
+  } catch (error) {
+    console.error("Remove cart item error:", error);
+    alert("حذف محصول از سبد خرید انجام نشد.");
+  } finally {
+    stopItemLoading(productId);
+  }
+};
+
+  // const increaseQuantity = async (productId) => {
+  //   try {
+  //     const item = cartItems.find((item) => item.id === productId);
+
+  //     if (!item?.key) {
+  //       throw new Error("Cart item key not found");
+  //     }
+
+  //     const wooCart = await updateWooCartItem(item.key, item.quantity + 1);
+
+  //     setCartItems((prevItems) =>
+  //       prevItems.map((cartItem) => {
+  //         const updatedItem = wooCart.items.find(
+  //           (wooItem) => wooItem.id === cartItem.id,
+  //         );
+
+  //         return updatedItem
+  //           ? {
+  //               ...cartItem,
+  //               quantity: updatedItem.quantity,
+  //               key: updatedItem.key,
+  //             }
+  //           : cartItem;
+  //       }),
+  //     );
+  //   } catch (error) {
+  //     console.error("Increase quantity error:", error);
+  //     alert("افزایش تعداد محصول انجام نشد.");
+  //   }
+  // };
+  const increaseQuantity = async (productId) => {
+  startItemLoading(productId, "updating");
+
+  try {
+    const item = cartItems.find((item) => item.id === productId);
+
+    if (!item?.key) {
+      throw new Error("Cart item key not found");
+    }
+
+    const wooCart = await updateWooCartItem(item.key, item.quantity + 1);
+
+    setCartItems((prevItems) =>
+      prevItems.map((cartItem) => {
+        const updatedItem = wooCart.items.find(
+          (wooItem) => wooItem.id === cartItem.id,
+        );
+
+        return updatedItem
+          ? {
+              ...cartItem,
+              quantity: updatedItem.quantity,
+              key: updatedItem.key,
+            }
+          : cartItem;
+      }),
+    );
+  } catch (error) {
+    console.error("Increase quantity error:", error);
+    alert("افزایش تعداد محصول انجام نشد.");
+  } finally {
+    stopItemLoading(productId);
+  }
+};
+
+  // const decreaseQuantity = async (productId) => {
+  //   try {
+  //     const item = cartItems.find((item) => item.id === productId);
+
+  //     if (!item?.key) {
+  //       throw new Error("Cart item key not found");
+  //     }
+
+  //     if (item.quantity <= 1) {
+  //       await removeWooCartItem(item.key);
+
+  //       setCartItems((prevItems) =>
+  //         prevItems.filter((cartItem) => cartItem.id !== productId),
+  //       );
+
+  //       return;
+  //     }
+
+  //     const wooCart = await updateWooCartItem(item.key, item.quantity - 1);
+
+  //     setCartItems((prevItems) =>
+  //       prevItems.map((cartItem) => {
+  //         const updatedItem = wooCart.items.find(
+  //           (wooItem) => wooItem.id === cartItem.id,
+  //         );
+
+  //         return updatedItem
+  //           ? {
+  //               ...cartItem,
+  //               quantity: updatedItem.quantity,
+  //               key: updatedItem.key,
+  //             }
+  //           : cartItem;
+  //       }),
+  //     );
+  //   } catch (error) {
+  //     console.error("Decrease quantity error:", error);
+  //     alert("کاهش تعداد محصول انجام نشد.");
+  //   }
+  // };
+
+  const decreaseQuantity = async (productId) => {
+  const item = cartItems.find((item) => item.id === productId);
+
+  const status = item?.quantity <= 1 ? "removing" : "updating";
+
+  startItemLoading(productId, status);
+
+  try {
+    if (!item?.key) {
+      throw new Error("Cart item key not found");
+    }
+
+    if (item.quantity <= 1) {
       await removeWooCartItem(item.key);
 
       setCartItems((prevItems) =>
         prevItems.filter((cartItem) => cartItem.id !== productId),
       );
-    } catch (error) {
-      console.error("Remove cart item error:", error);
-      alert("حذف محصول از سبد خرید انجام نشد.");
+
+      return;
     }
-  };
 
-  const increaseQuantity = async (productId) => {
-    try {
-      const item = cartItems.find((item) => item.id === productId);
+    const wooCart = await updateWooCartItem(item.key, item.quantity - 1);
 
-      if (!item?.key) {
-        throw new Error("Cart item key not found");
-      }
-
-      const wooCart = await updateWooCartItem(item.key, item.quantity + 1);
-
-      setCartItems((prevItems) =>
-        prevItems.map((cartItem) => {
-          const updatedItem = wooCart.items.find(
-            (wooItem) => wooItem.id === cartItem.id,
-          );
-
-          return updatedItem
-            ? {
-                ...cartItem,
-                quantity: updatedItem.quantity,
-                key: updatedItem.key,
-              }
-            : cartItem;
-        }),
-      );
-    } catch (error) {
-      console.error("Increase quantity error:", error);
-      alert("افزایش تعداد محصول انجام نشد.");
-    }
-  };
-
-  const decreaseQuantity = async (productId) => {
-    try {
-      const item = cartItems.find((item) => item.id === productId);
-
-      if (!item?.key) {
-        throw new Error("Cart item key not found");
-      }
-
-      if (item.quantity <= 1) {
-        await removeWooCartItem(item.key);
-
-        setCartItems((prevItems) =>
-          prevItems.filter((cartItem) => cartItem.id !== productId),
+    setCartItems((prevItems) =>
+      prevItems.map((cartItem) => {
+        const updatedItem = wooCart.items.find(
+          (wooItem) => wooItem.id === cartItem.id,
         );
 
-        return;
-      }
-
-      const wooCart = await updateWooCartItem(item.key, item.quantity - 1);
-
-      setCartItems((prevItems) =>
-        prevItems.map((cartItem) => {
-          const updatedItem = wooCart.items.find(
-            (wooItem) => wooItem.id === cartItem.id,
-          );
-
-          return updatedItem
-            ? {
-                ...cartItem,
-                quantity: updatedItem.quantity,
-                key: updatedItem.key,
-              }
-            : cartItem;
-        }),
-      );
-    } catch (error) {
-      console.error("Decrease quantity error:", error);
-      alert("کاهش تعداد محصول انجام نشد.");
-    }
-  };
+        return updatedItem
+          ? {
+              ...cartItem,
+              quantity: updatedItem.quantity,
+              key: updatedItem.key,
+            }
+          : cartItem;
+      }),
+    );
+  } catch (error) {
+    console.error("Decrease quantity error:", error);
+    alert("کاهش تعداد محصول انجام نشد.");
+  } finally {
+    stopItemLoading(productId);
+  }
+};
 
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
@@ -215,6 +333,7 @@ export const CartProvider = ({ children }) => {
         decreaseQuantity,
         getProductQuantity,
         removeFromCart,
+        loadingItems,
       }}
     >
       {children}

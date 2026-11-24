@@ -9,9 +9,11 @@ import { useCart } from "../../context/CartContext";
 import { FiTrash2 } from "react-icons/fi";
 import { getGoldPrice } from "../../services/goldPriceService";
 import { useEffect, useState } from "react";
+import Spinner from "../../components/shared/spinner";
 
 const Cart = () => {
-  const { cartItems, removeFromCart } = useCart();
+  // const { cartItems, removeFromCart } = useCart();
+  const { cartItems, removeFromCart, loadingItems } = useCart();
   const [goldPrice, setGoldPrice] = useState(null);
 
   const getCurrentItemPrice = (item) => {
@@ -89,13 +91,26 @@ const Cart = () => {
                       getCurrentItemPrice(item) * item.quantity,
                     )}
                   </span>
-                  <button
+                  {/* <button
                     type="button"
                     onClick={() => removeFromCart(item.id)}
                     className="text-red-500 hover:text-red-400 transition cursor-pointer"
                     title="حذف محصول"
                   >
                     <FiTrash2 size={18} />
+                  </button> */}
+                  <button
+                    type="button"
+                    onClick={() => removeFromCart(item.id)}
+                    disabled={Boolean(loadingItems[item.id])}
+                    className="text-red-500 hover:text-red-400 transition cursor-pointer disabled:opacity-50"
+                    title="حذف محصول"
+                  >
+                    {loadingItems[item.id] === "removing" ? (
+                      <Spinner size="sm" />
+                    ) : (
+                      <FiTrash2 size={18} />
+                    )}
                   </button>
                 </div>
               </div>

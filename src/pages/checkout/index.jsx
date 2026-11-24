@@ -6,9 +6,12 @@ import {
 } from "../../components/shared/utils/formatPrice";
 import Button from "../../components/shared/Button";
 import { getGoldPrice } from "../../services/goldPriceService";
+import Spinner from "../../components/shared/spinner";
 
 const Checkout = () => {
   const { cartItems } = useCart();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isOrderCreated, setIsOrderCreated] = useState(false);
 
   const [goldPrice, setGoldPrice] = useState(null);
 
@@ -87,6 +90,8 @@ const Checkout = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (isSubmitting) return;
+
     const validationErrors = validateForm();
 
     setErrors(validationErrors);
@@ -94,6 +99,8 @@ const Checkout = () => {
     if (Object.keys(validationErrors).length > 0) {
       return;
     }
+
+    setIsSubmitting(true);
 
     const orderItems = cartItems.map((item) => ({
       id: item.id,
@@ -125,13 +132,16 @@ const Checkout = () => {
 
       console.log("CREATE ORDER RESPONSE:", data);
 
-      if (!response.ok) {
+      if (!response.ok)
         throw new Error(data.message || "ثبت سفارش ناموفق بود.");
-      }
 
       console.log("ORDER CREATED:", data.order_id);
+
+      setIsOrderCreated(true);
     } catch (error) {
       console.error("CREATE ORDER ERROR:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -354,13 +364,31 @@ const Checkout = () => {
             </span>
           </div>
 
-          <Button
+          {/* <Button
             variant="secondary"
             btnType="gradient"
             type="submit"
             className="w-full mt-6 rounded-full py-3 bg-[var(--gradient-secondary)] text-white font-semibold hover:opacity-90 transition"
           >
             ثبت اطلاعات و ادامه
+          </Button> */}
+          <Button
+            variant="secondary"
+            btnType="gradient"
+            type="submit"
+            disabled={isSubmitting || isOrderCreated}
+            className="w-full mt-6 rounded-full py-3 bg-[var(--gradient-secondary)] text-white font-semibold hover:opacity-90 transition"
+          >
+            {isSubmitting ? (
+              <span className="flex items-center justify-center gap-2">
+                <Spinner size="sm" />
+                در حال ثبت سفارش...
+              </span>
+            ) : isOrderCreated ? (
+              "سفارش ثبت شد"
+            ) : (
+              "ثبت اطلاعات و ادامه"
+            )}
           </Button>
         </div>
       </form>

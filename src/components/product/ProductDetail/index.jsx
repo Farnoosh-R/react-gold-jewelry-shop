@@ -21,6 +21,7 @@ import {
 } from "../../shared/utils/formatPrice";
 import { useCart } from "../../../context/CartContext";
 import { getGoldPrice } from "../../../services/goldPriceService";
+import Spinner from "../../shared/spinner";
 
 const ProductDetail = () => {
   // const { id } = useParams();
@@ -30,6 +31,7 @@ const ProductDetail = () => {
   const [error, setError] = useState(null);
 
   const [selectedQuantity, setSelectedQuantity] = useState(1);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
   const { addToCart } = useCart();
   const [goldPrice, setGoldPrice] = useState(null);
 
@@ -52,12 +54,24 @@ const ProductDetail = () => {
     fetchProduct();
   }, [slug]);
 
+  // const handleAddToCart = async () => {
+  //   try {
+  //     await addToCart(product, selectedQuantity);
+  //     alert("محصول با موفقیت به سبد خرید اضافه شد.");
+  //   } catch (error) {
+  //     alert("افزودن محصول به سبد خرید ناموفق بود.");
+  //   }
+  // };
   const handleAddToCart = async () => {
+    setIsAddingToCart(true);
+
     try {
       await addToCart(product, selectedQuantity);
       alert("محصول با موفقیت به سبد خرید اضافه شد.");
     } catch (error) {
       alert("افزودن محصول به سبد خرید ناموفق بود.");
+    } finally {
+      setIsAddingToCart(false);
     }
   };
 
@@ -224,12 +238,27 @@ const ProductDetail = () => {
                   onChange={setSelectedQuantity}
                 />
 
-                <Button
+                {/* <Button
                   variant="secondary"
                   btnType="gradient"
                   onClick={handleAddToCart}
                 >
                   افزودن به سبد خرید
+                </Button> */}
+                <Button
+                  variant="secondary"
+                  btnType="gradient"
+                  onClick={handleAddToCart}
+                  disabled={isAddingToCart}
+                >
+                  {isAddingToCart ? (
+                    <span className="flex items-center gap-2">
+                      <Spinner size="sm" />
+                      در حال افزودن...
+                    </span>
+                  ) : (
+                    "افزودن به سبد خرید"
+                  )}
                 </Button>
 
                 <div className="border border-[var(--color-secondary)]/30 rounded-full p-2 w-fit h-fit bg-[var(--color-primary-light)]/30">

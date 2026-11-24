@@ -7,6 +7,7 @@ const Button = ({
   to,
   btnType = "solid",
   size = "md",
+  disabled = false,
 }) => {
   const base =
     "group rounded-[30px] font-medium justify-center w-fit items-center hover:brightness-90 inline-flex cursor-pointer transition-all";
@@ -35,11 +36,11 @@ const Button = ({
   };
 
   const gradientVariants = {
- primary:
-    "bg-gradient-to-r from-[var(--color-primary-dark)] via-[var(--color-primary-light)] to-[var(--color-primary-dark)] text-white shadow-xl",
+    primary:
+      "bg-gradient-to-r from-[var(--color-primary-dark)] via-[var(--color-primary-light)] to-[var(--color-primary-dark)] text-white shadow-xl",
 
-  secondary:
-    "bg-gradient-to-r from-[var(--color-secondary-dark)] via-[var(--color-secondary-light)] to-[var(--color-secondary-dark)] text-white shadow-xl",
+    secondary:
+      "bg-gradient-to-r from-[var(--color-secondary-dark)] via-[var(--color-secondary-light)] to-[var(--color-secondary-dark)] text-white shadow-xl",
   };
 
   let variantClass;
@@ -52,7 +53,10 @@ const Button = ({
     variantClass = variants[variant];
   }
 
-  const className = `${base} ${sizes[size]} ${variantClass}`;
+  // const className = `${base} ${sizes[size]} ${variantClass}`;
+  const className = `${base} ${sizes[size]} ${variantClass} ${
+  disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : ""
+}`;
 
   if (to) {
     return (
@@ -62,11 +66,20 @@ const Button = ({
     );
   }
 
+  // return (
+  //   <button onClick={onClick} className={className}>
+  //     {children}
+  //   </button>
+  // );
   return (
-    <button onClick={onClick} className={className}>
-      {children}
-    </button>
-  );
+  <button
+    onClick={onClick}
+    className={className}
+    disabled={disabled}
+  >
+    {children}
+  </button>
+);
 };
 
 export default Button;
