@@ -1,17 +1,45 @@
 import { Link } from "react-router-dom";
 import Button from "../../components/shared/Button";
 import QuantitySelector from "../../components/shared/QuantitySelector";
-import { formatPrice } from "../../components/shared/utils/formatPrice";
+import {
+  calculateProductPrice,
+  formatTomanPrice,
+} from "../../components/shared/utils/formatPrice";
 import { useCart } from "../../context/CartContext";
 import { FiTrash2 } from "react-icons/fi";
+import { getGoldPrice } from "../../services/goldPriceService";
+import { useEffect, useState } from "react";
 
 const Cart = () => {
   const { cartItems, removeFromCart } = useCart();
+  const [goldPrice, setGoldPrice] = useState(null);
+
+  const getCurrentItemPrice = (item) => {
+    if (
+      goldPrice === null ||
+      !Number.isFinite(Number(item.weight)) ||
+      !Number.isFinite(Number(item.wage))
+    ) {
+      return Number(item.price || 0);
+    }
+
+    return calculateProductPrice(item.weight, goldPrice, item.wage);
+  };
 
   const totalPrice = cartItems.reduce(
-    (total, item) => total + Number(item.price || 0) * item.quantity,
+    (total, item) => total + getCurrentItemPrice(item) * item.quantity,
     0,
   );
+
+  useEffect(() => {
+    getGoldPrice()
+      .then((price) => {
+        setGoldPrice(price);
+      })
+      .catch((error) => {
+        console.error("GOLD PRICE ERROR:", error);
+      });
+  }, []);
 
   return (
     <section className="app-container min-h-screen pt-32 pb-20">
@@ -44,7 +72,7 @@ const Cart = () => {
                     </h3>
 
                     <p className="text-sm text-[var(--color-secondary)]">
-                      قیمت واحد: {formatPrice(item.price)} تومان
+                      قیمت واحد: {formatTomanPrice(getCurrentItemPrice(item))}
                     </p>
                   </div>
                 </div>
@@ -57,7 +85,9 @@ const Cart = () => {
                   />
 
                   <span className="text-[var(--color-secondary)] whitespace-nowrap">
-                    {formatPrice(Number(item.price || 0) * item.quantity)} تومان
+                    {formatTomanPrice(
+                      getCurrentItemPrice(item) * item.quantity,
+                    )}
                   </span>
                   <button
                     type="button"
@@ -82,7 +112,7 @@ const Cart = () => {
               <span className="text-[var(--color-light)]">جمع کل</span>
 
               <span className="text-[var(--color-secondary)] font-bold">
-                {formatPrice(totalPrice)} تومان
+                {formatTomanPrice(totalPrice)}
               </span>
             </div>
 

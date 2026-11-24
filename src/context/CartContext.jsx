@@ -5,6 +5,8 @@ import {
   updateWooCartItem,
   removeWooCartItem,
 } from "../services/cartService";
+import { calculateProductPrice } from "../components/shared/utils/formatPrice";
+import { getGoldPrice } from "../services/goldPriceService";
 
 const CartContext = createContext();
 
@@ -18,6 +20,12 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = async (product, quantity = 1) => {
     try {
+      const goldPrice = await getGoldPrice();
+      const calculatedPrice = calculateProductPrice(
+        product.weight,
+        goldPrice,
+        product.acf?.wage,
+      );
       const wooCart = await addItemToWooCart(product.id, quantity);
 
       setCartItems((prevItems) => {
@@ -59,7 +67,9 @@ export const CartProvider = ({ children }) => {
             id: product.id,
             key: addedItem?.key,
             name: product.name,
-            price: product.prices?.price,
+            price: calculatedPrice,
+            weight: product.weight,
+            wage: product.acf?.wage,
             image: product.images?.[0]?.thumbnail || product.images?.[0]?.src,
             quantity,
           },
@@ -75,105 +85,97 @@ export const CartProvider = ({ children }) => {
     return cartItems.find((item) => item.id === productId)?.quantity || 0;
   };
 
-const removeFromCart = async (productId) => {
+  const removeFromCart = async (productId) => {
     try {
-        const item = cartItems.find(
-            (item) => item.id === productId
-        );
+      const item = cartItems.find((item) => item.id === productId);
+      console.log("CART ITEM:", item);
 
-        if (!item?.key) {
-            throw new Error("Cart item key not found");
-        }
+      if (!item?.key) {
+        throw new Error("Cart item key not found");
+      }
 
+      await removeWooCartItem(item.key);
+
+      setCartItems((prevItems) =>
+        prevItems.filter((cartItem) => cartItem.id !== productId),
+      );
+    } catch (error) {
+      console.error("Remove cart item error:", error);
+      alert("حذف محصول از سبد خرید انجام نشد.");
+    }
+  };
+
+  const increaseQuantity = async (productId) => {
+    try {
+      const item = cartItems.find((item) => item.id === productId);
+
+      if (!item?.key) {
+        throw new Error("Cart item key not found");
+      }
+
+      const wooCart = await updateWooCartItem(item.key, item.quantity + 1);
+
+      setCartItems((prevItems) =>
+        prevItems.map((cartItem) => {
+          const updatedItem = wooCart.items.find(
+            (wooItem) => wooItem.id === cartItem.id,
+          );
+
+          return updatedItem
+            ? {
+                ...cartItem,
+                quantity: updatedItem.quantity,
+                key: updatedItem.key,
+              }
+            : cartItem;
+        }),
+      );
+    } catch (error) {
+      console.error("Increase quantity error:", error);
+      alert("افزایش تعداد محصول انجام نشد.");
+    }
+  };
+
+  const decreaseQuantity = async (productId) => {
+    try {
+      const item = cartItems.find((item) => item.id === productId);
+
+      if (!item?.key) {
+        throw new Error("Cart item key not found");
+      }
+
+      if (item.quantity <= 1) {
         await removeWooCartItem(item.key);
 
         setCartItems((prevItems) =>
-            prevItems.filter((cartItem) => cartItem.id !== productId)
+          prevItems.filter((cartItem) => cartItem.id !== productId),
         );
 
+        return;
+      }
+
+      const wooCart = await updateWooCartItem(item.key, item.quantity - 1);
+
+      setCartItems((prevItems) =>
+        prevItems.map((cartItem) => {
+          const updatedItem = wooCart.items.find(
+            (wooItem) => wooItem.id === cartItem.id,
+          );
+
+          return updatedItem
+            ? {
+                ...cartItem,
+                quantity: updatedItem.quantity,
+                key: updatedItem.key,
+              }
+            : cartItem;
+        }),
+      );
     } catch (error) {
-        console.error("Remove cart item error:", error);
-        alert("حذف محصول از سبد خرید انجام نشد.");
+      console.error("Decrease quantity error:", error);
+      alert("کاهش تعداد محصول انجام نشد.");
     }
-};
-
-const increaseQuantity = async (productId) => {
-    try {
-        const item = cartItems.find((item) => item.id === productId);
-
-        if (!item?.key) {
-            throw new Error("Cart item key not found");
-        }
-
-        const wooCart = await updateWooCartItem(
-            item.key,
-            item.quantity + 1
-        );
-
-        setCartItems((prevItems) =>
-            prevItems.map((cartItem) => {
-                const updatedItem = wooCart.items.find(
-                    (wooItem) => wooItem.id === cartItem.id
-                );
-
-                return updatedItem
-                    ? {
-                          ...cartItem,
-                          quantity: updatedItem.quantity,
-                          key: updatedItem.key,
-                      }
-                    : cartItem;
-            })
-        );
-    } catch (error) {
-        console.error("Increase quantity error:", error);
-        alert("افزایش تعداد محصول انجام نشد.");
-    }
-};
-
-const decreaseQuantity = async (productId) => {
-    try {
-        const item = cartItems.find((item) => item.id === productId);
-
-        if (!item?.key) {
-            throw new Error("Cart item key not found");
-        }
-
-        if (item.quantity <= 1) {
-            await removeWooCartItem(item.key);
-
-            setCartItems((prevItems) =>
-                prevItems.filter((cartItem) => cartItem.id !== productId)
-            );
-
-            return;
-        }
-
-        const wooCart = await updateWooCartItem(
-            item.key,
-            item.quantity - 1
-        );
-
-        setCartItems((prevItems) =>
-            prevItems.map((cartItem) => {
-                const updatedItem = wooCart.items.find(
-                    (wooItem) => wooItem.id === cartItem.id
-                );
-
-                return updatedItem
-                    ? {
-                          ...cartItem,
-                          quantity: updatedItem.quantity,
-                          key: updatedItem.key,
-                      }
-                    : cartItem;
-            })
-        );
-    } catch (error) {
-        console.error("Decrease quantity error:", error);
-        alert("کاهش تعداد محصول انجام نشد.");
-    }
-};
+  };
 
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));

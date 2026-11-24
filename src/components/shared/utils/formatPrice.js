@@ -3,10 +3,17 @@ export const formatPrice = (price) => {
     return "-";
   }
 
-  // تبدیل ریال به تومان
-  const tomanPrice = Number(price) / 10;
+  return `${Number(price).toLocaleString("en-US", {
+    maximumFractionDigits: 0,
+  })} تومان`;
+};
 
-  return `${tomanPrice.toLocaleString("en-US", {
+export const formatTomanPrice = (price) => {
+  if (price === null || price === undefined || price === "") {
+    return "-";
+  }
+
+  return `${Number(price).toLocaleString("en-US", {
     maximumFractionDigits: 0,
   })} تومان`;
 };

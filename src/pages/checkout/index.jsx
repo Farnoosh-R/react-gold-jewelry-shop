@@ -1,10 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "../../context/CartContext";
-import { formatPrice } from "../../components/shared/utils/formatPrice";
+import {
+  calculateProductPrice,
+  formatTomanPrice,
+} from "../../components/shared/utils/formatPrice";
 import Button from "../../components/shared/Button";
+import { getGoldPrice } from "../../services/goldPriceService";
 
 const Checkout = () => {
   const { cartItems } = useCart();
+
+  const [goldPrice, setGoldPrice] = useState(null);
+
+  useEffect(() => {
+    getGoldPrice()
+      .then((price) => {
+        setGoldPrice(price);
+      })
+      .catch((error) => {
+        console.error("GOLD PRICE ERROR:", error);
+      });
+  }, []);
+
+  const getCurrentItemPrice = (item) => {
+    if (
+      goldPrice === null ||
+      !Number.isFinite(Number(item.weight)) ||
+      !Number.isFinite(Number(item.wage))
+    ) {
+      return Number(item.price || 0);
+    }
+
+    return calculateProductPrice(item.weight, goldPrice, item.wage);
+  };
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -16,8 +44,9 @@ const Checkout = () => {
     postcode: "",
   });
   const [errors, setErrors] = useState({});
+
   const totalPrice = cartItems.reduce(
-    (total, item) => total + Number(item.price || 0) * item.quantity,
+    (total, item) => total + getCurrentItemPrice(item) * item.quantity,
     0,
   );
 
@@ -35,7 +64,27 @@ const Checkout = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   const validationErrors = validateForm();
+
+  //   setErrors(validationErrors);
+
+  //   if (Object.keys(validationErrors).length > 0) {
+  //     return;
+  //   }
+  //   const orderItems = cartItems.map((item) => ({
+  //     ...item,
+  //     price: getCurrentItemPrice(item),
+  //   }));
+
+  //   console.log("Customer Info:", formData);
+  //   console.log("Order Items:", orderItems);
+  //   console.log("Total Price:", totalPrice);
+  // };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const validationErrors = validateForm();
@@ -46,8 +95,44 @@ const Checkout = () => {
       return;
     }
 
-    console.log("Customer Info:", formData);
-    console.log("Cart Items:", cartItems);
+    const orderItems = cartItems.map((item) => ({
+      id: item.id,
+      quantity: item.quantity,
+      price: getCurrentItemPrice(item),
+    }));
+
+    const orderData = {
+      customer: formData,
+      items: orderItems,
+      total: totalPrice,
+    };
+
+    console.log("ORDER DATA:", orderData);
+
+    try {
+      const response = await fetch(
+        "https://zarchic.ir/api/wp-json/zarchic/v1/create-order",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(orderData),
+        },
+      );
+
+      const data = await response.json();
+
+      console.log("CREATE ORDER RESPONSE:", data);
+
+      if (!response.ok) {
+        throw new Error(data.message || "ثبت سفارش ناموفق بود.");
+      }
+
+      console.log("ORDER CREATED:", data.order_id);
+    } catch (error) {
+      console.error("CREATE ORDER ERROR:", error);
+    }
   };
 
   if (cartItems.length === 0) {
@@ -255,7 +340,7 @@ const Checkout = () => {
                 </span>
 
                 <span className="text-gray-300 whitespace-nowrap">
-                  {formatPrice(Number(item.price || 0) * item.quantity)} تومان
+                  {formatTomanPrice(getCurrentItemPrice(item) * item.quantity)}
                 </span>
               </div>
             ))}
@@ -265,7 +350,7 @@ const Checkout = () => {
             <span className="text-white">جمع کل</span>
 
             <span className="text-[var(--color-secondary)] font-bold">
-              {formatPrice(totalPrice)} تومان
+              {formatTomanPrice(totalPrice)}
             </span>
           </div>
 
